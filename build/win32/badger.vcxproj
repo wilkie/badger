@@ -10,6 +10,10 @@
       <Platform>Win32</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\src\engine.cpp" />
+    <ClCompile Include="..\..\src\test.cpp" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{559F58DF-1E22-49BF-A853-45169DFFB2D7}</ProjectGuid>
     <RootNamespace>isotasty</RootNamespace>
