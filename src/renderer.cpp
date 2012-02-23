@@ -65,6 +65,39 @@ void Badger::Renderer::drawArrays(const float vertices[], const float normals[],
 	glDisableClientState(GL_NORMAL_ARRAY);
 }
 
+void Badger::Renderer::drawSquare(float x, float y, float width, float height) {
+	// square ////////////////////////////////////////////////////////////////////
+	//  v1------v0
+	//  |       |
+	//  |       |
+	//  |       |
+	//  v2------v3
+
+	// vertex coords array
+	static const float vertices[] = {1,1,1,  -1,1,1,  -1,-1,1,  1,-1,1};       // v0-v1-v2-v3
+
+	// normal array
+	static const float normals[] = {0,0,1,  0,0,1,  0,0,1,  0,0,1};            // v0-v1-v2-v3
+
+	// color array
+	static const float colors[] = {0.72f,0.54f,0,  0.72f,0.54f,0,  0.52f,0.388f,0,  0.72f,0.388f,0}; // v0-v1-v2-v3
+
+	static const unsigned char indices[] = {0, 1, 2, 3};
+
+	glCullFace(GL_BACK);
+
+	float half_width = width / 2.0f;
+	float half_height = height / 2.0f;
+
+	glPushMatrix();
+	glTranslatef(x, y, 0);
+	glScalef(half_width, half_height, 1.0);
+
+	drawArrays(vertices, normals, colors, indices, 24);
+
+	glPopMatrix();
+}
+
 void Badger::Renderer::drawCube(float x, float y, float z, float width, float height, float depth) {
 	// cube ///////////////////////////////////////////////////////////////////////
 	//    v6----- v5
