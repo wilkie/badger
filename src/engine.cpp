@@ -7,9 +7,11 @@ Badger::Engine::Engine(VideoSettings* video) {
 	if (!_initialize()) {
 		return;
 	}
+	_renderer = new Renderer();
 }
 
 void Badger::Engine::_draw() {
+	_renderer->clear();
 }
 
 void Badger::Engine::run() {

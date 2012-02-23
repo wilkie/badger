@@ -1,5 +1,7 @@
 #ifndef BADGER_ENGINE_H
-#define BADGET_ENGINE_H
+#define BADGER_ENGINE_H
+
+#include <badger/renderer.h>
 
 // This is here instead of the cpp because main() is overriden by
 // preprocessor magicks.
@@ -20,6 +22,7 @@ namespace Badger {
 
 		private:
 			VideoSettings _video;
+			Renderer*     _renderer;
 
 			bool _startSDL();
 			bool _initialize();
