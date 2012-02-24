@@ -11,7 +11,11 @@ Badger::Engine::Engine(VideoSettings* video) {
 }
 
 void Badger::Engine::_draw() {
+	_renderer->setProjection(_video.resolutionX, _video.resolutionY, 1.0);
 	_renderer->clear();
+	_renderer->drawSquare(0,0,32,32);
+	_renderer->drawSquare(32,32,32,32);
+	_renderer->drawSquare(64,64,32,32);
 }
 
 void Badger::Engine::run() {

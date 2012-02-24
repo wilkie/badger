@@ -2,6 +2,7 @@
 #define BADGER_ENGINE_H
 
 #include <badger/renderer.h>
+#include <badger/viewport.h>
 
 // This is here instead of the cpp because main() is overriden by
 // preprocessor magicks.
@@ -23,6 +24,7 @@ namespace Badger {
 		private:
 			VideoSettings _video;
 			Renderer*     _renderer;
+			Viewport*     _mainViewport;
 
 			bool _startSDL();
 			bool _initialize();
@@ -35,4 +37,3 @@ namespace Badger {
 }
 
 #endif
-
