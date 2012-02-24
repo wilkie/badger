@@ -8,4 +8,6 @@ Badger::SpriteSheet::SpriteSheet(const char* filename) {
 		char* error = IMG_GetError();
 		fprintf(stderr, "IMG_LoadPNG_RW: %s\n", error);
 	}
+
+	SDL_DisplayFormatAlpha(_image);
 }
