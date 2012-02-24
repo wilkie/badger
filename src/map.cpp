@@ -1,4 +1,4 @@
-#include <badger/map.h>
+#include "badger/map.h"
 
 #include <string.h>
 
@@ -10,4 +10,20 @@ Badger::Map::Map(unsigned int width,
 	_tiles = new Tile[_width * _height];
 	memset(_tiles, 0, _width*_height*sizeof(Tile));
 	_spriteSheet = spriteSheet;
+}
+
+unsigned int Badger::Map::width() {
+	return _width;
+}
+
+unsigned int Badger::Map::height() {
+	return _height;
+}
+
+Badger::Tile* Badger::Map::tile(unsigned int x, unsigned int y) {
+	return &_tiles[(y * _width) + x];
+}
+
+Badger::SpriteSheet* Badger::Map::spriteSheet() {
+	return _spriteSheet;
 }

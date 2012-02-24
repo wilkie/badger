@@ -17,6 +17,11 @@ namespace Badger {
 			Map(unsigned int width,
 			    unsigned int height,
 			    SpriteSheet* spriteSheet);
+
+			Tile*        tile(unsigned int x, unsigned int y);
+			unsigned int width();
+			unsigned int height();
+			SpriteSheet* spriteSheet();
 	};
 }
 
