@@ -37,13 +37,13 @@ bool Badger::Renderer::initializeViewport(unsigned int width, unsigned int heigh
 	return true;
 }
 
-void Badger::Renderer::setProjection(unsigned int width, unsigned int height, double rotation, double translationX, double translationZ, double zoom) {
+void Badger::Renderer::setProjection(unsigned int width, unsigned int height, double zoom) {
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 
 	double aspect = (double)width/(double)height;
-
-    glFrustum(-aspect/2.0, aspect/2.0, -aspect/2.0, aspect/2.0, 5, 100000);
+    glOrtho(0, width, 0, height, -100, 100);
+	glScaled(zoom, zoom, zoom);
 
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
@@ -93,7 +93,7 @@ void Badger::Renderer::drawSquare(float x, float y, float width, float height) {
 	glTranslatef(x, y, 0);
 	glScalef(half_width, half_height, 1.0);
 
-	drawArrays(vertices, normals, colors, indices, 24);
+	drawArrays(vertices, normals, colors, indices, 4);
 
 	glPopMatrix();
 }
