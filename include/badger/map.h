@@ -2,6 +2,7 @@
 #define BADGER_MAP_H
 
 #include "badger/tile.h"
+#include "badger/sprite_sheet.h"
 
 namespace Badger {
 	class Map {
@@ -10,8 +11,12 @@ namespace Badger {
 			unsigned int _height;
 			Tile*        _tiles;
 
+			SpriteSheet* _spriteSheet;
+
 		public:
-			Map(unsigned int width, unsigned int height);
+			Map(unsigned int width,
+			    unsigned int height,
+			    SpriteSheet* spriteSheet);
 	};
 }
 
