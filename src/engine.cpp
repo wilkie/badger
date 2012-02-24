@@ -125,4 +125,3 @@ void Badger::Engine::_fireEvent(void* data) {
 		}
 	}
 }
-
