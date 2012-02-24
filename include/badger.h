@@ -4,3 +4,6 @@
  */
 
 #include "badger/engine.h"
+#include "badger/sprite_sheet.h"
+#include "badger/map.h"
+#include "badger/tile.h"
