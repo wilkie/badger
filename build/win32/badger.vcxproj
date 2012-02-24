@@ -14,6 +14,7 @@
     <ClCompile Include="..\..\src\engine.cpp" />
     <ClCompile Include="..\..\src\map.cpp" />
     <ClCompile Include="..\..\src\renderer.cpp" />
+    <ClCompile Include="..\..\src\sprite_sheet.cpp" />
     <ClCompile Include="..\..\src\test.cpp" />
     <ClCompile Include="..\..\src\viewport.cpp" />
   </ItemGroup>
