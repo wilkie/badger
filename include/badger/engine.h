@@ -38,9 +38,9 @@ namespace Badger {
       Engine(VideoSettings* video);
 
       /*
-       *  Attach the given Badger::Map.
+       *  Attach the given Badger::World.
        */
-      void map(Map* value);
+      void world(World* value);
 
       /*
        *  Execute the game loop. There is no escape from this function until the game ends.
@@ -53,7 +53,7 @@ namespace Badger {
       VideoSettings _video;
       Renderer*     _renderer;
       Viewport*     _mainViewport;
-      Map*          _map;
+      World*        _world;
 
       // Initialization methods
       bool _startSDL();

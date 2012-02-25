@@ -1,7 +1,7 @@
 #ifndef BADGER_VIEWPORT_H
 #define BADGER_VIEWPORT_H
 
-#include "badger/map.h"
+#include "badger/world.h"
 #include "badger/renderer.h"
 
 namespace Badger {
@@ -16,14 +16,14 @@ namespace Badger {
       Viewport();
 
       /*
-       *  Attaches the given Badger::Map.
+       *  Attaches the given Badger::World.
        */
-      void map(Badger::Map* value);
+      void world(Badger::World* value);
 
       /*
-       *  Returns the current Badger::Map.
+       *  Returns the current Badger::World.
        */
-      Badger::Map* map();
+      Badger::World* world();
 
       /*
        *  Draws the world from the perspective of this view with the
@@ -34,7 +34,7 @@ namespace Badger {
     private:
 
       // Internal Storage
-      Map* _map;
+      World* _world;
   };
 }
 

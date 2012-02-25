@@ -15,9 +15,9 @@ void Badger::Engine::_draw() {
   _mainViewport->draw(_renderer);
 }
 
-void Badger::Engine::map(Badger::Map* value) {
-  _map = value;
-  _mainViewport->map(value);
+void Badger::Engine::world(Badger::World* value) {
+  _world = value;
+  _mainViewport->world(value);
 }
 
 void Badger::Engine::run() {
