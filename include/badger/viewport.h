@@ -5,15 +5,36 @@
 #include "badger/renderer.h"
 
 namespace Badger {
+  /*
+   *  Describes a view of the world from a particular position.
+   */
   class Viewport {
-    private:
-      Map* _map;
-
     public:
+      /*
+       *  Constructs a Badger::Viewport.
+       */
       Viewport();
+
+      /*
+       *  Attaches the given Badger::Map.
+       */
       void map(Badger::Map* value);
+
+      /*
+       *  Returns the current Badger::Map.
+       */
       Badger::Map* map();
+
+      /*
+       *  Draws the world from the perspective of this view with the
+       *    given Badger::Renderer.
+       */
       void draw(Renderer* renderer);
+
+    private:
+
+      // Internal Storage
+      Map* _map;
   };
 }
 
