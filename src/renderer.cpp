@@ -141,7 +141,7 @@ void Badger::Renderer::drawSquare(float x, float y, float width, float height,
   glPopMatrix();
 }
 
-void Badger::Renderer::drawCube(float x, float y, float z,
+void Badger::Renderer::drawCube(float x,     float y,      float z,
                                 float width, float height, float depth) {
   // cube //////////////////////////////////////////////////////////////////////
   //    v6----- v5
