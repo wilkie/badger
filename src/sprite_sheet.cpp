@@ -55,8 +55,61 @@ Badger::SpriteSheet::SpriteSheet(const char* filename) {
   _width  = image->w;
   _height = image->h;
 
-  _tileWidth = 32;
-  _tileHeight = 32;
+  _loadStatSheet(filename);
+
+  SDL_FreeSurface(image);
+}
+
+void Badger::SpriteSheet::_resizeSpriteArray() {
+  Sprite* old = _sprites;
+
+  _sprites = new Sprite[_spriteCount+128];
+  memcpy(_sprites, old, sizeof(Sprite) * _spriteCount);
+  _spriteCount += 128;
+
+  delete [] old;
+}
+
+char* Badger::SpriteSheet::_determineStatSheetFilename(const char* filename) {
+  char* stat_sheet = new char[strlen(filename)+2];
+  strncpy(stat_sheet, filename, strlen(filename));
+
+  for (unsigned int i = strlen(filename); i > 0; i--) {
+    if (stat_sheet[i] == '.') {
+      stat_sheet[i] = '\0';
+    }
+  }
+
+  strcat(stat_sheet, ".txt");
+
+  return stat_sheet;
+}
+
+void Badger::SpriteSheet::_loadStatSheet(const char* filename) {
+  char* stat_sheet = _determineStatSheetFilename(filename);
+
+  FILE* f = fopen(stat_sheet, "rt");
+  
+  _spriteCount = 128;
+  _sprites = new Sprite[_spriteCount];
+
+  unsigned int spritesLoaded = 0;
+  while(!feof(f)) {
+    if (_spriteCount == spritesLoaded) {
+      _resizeSpriteArray();
+    }
+    Sprite* sprite = &_sprites[spritesLoaded];
+    fscanf(f, "%64s %d, %d, %d, %d\n", sprite->name,
+                                    &sprite->x,
+                                    &sprite->y,
+                                    &sprite->width,
+                                    &sprite->height);
+    spritesLoaded++;
+  }
+
+  _spriteCount = spritesLoaded;
+
+  delete [] stat_sheet;
 }
 
 unsigned int Badger::SpriteSheet::texture() {
@@ -64,16 +117,12 @@ unsigned int Badger::SpriteSheet::texture() {
 }
 
 void Badger::SpriteSheet::textureCoordinates(unsigned int index, double coords[4]) {
-  unsigned int widthInTiles  = (unsigned int)floor((double)_width  / (double)_tileWidth);
-  unsigned int heightInTiles = (unsigned int)floor((double)_height / (double)_tileHeight);
+  Sprite* sprite = &_sprites[index];
 
-  double x = (double)(index % widthInTiles);
-  double y = (double)(index / widthInTiles);
-
-  double tw = (double)_tileWidth  / (double)_width;
-  double th = (double)_tileHeight / (double)_height;
-  double tu = x * tw;
-  double tv = y * th;
+  double tu = (double)sprite->x      / (double)_width;
+  double tv = (double)sprite->y      / (double)_height;
+  double tw = (double)sprite->width  / (double)_width;
+  double th = (double)sprite->height / (double)_height;
 
   coords[0] = tu;
   coords[1] = tv;
