@@ -7,23 +7,23 @@ Badger::Map::Map(unsigned int width,
                  SpriteSheet* spriteSheet) : 
                    _width(width),
                    _height(height) {
-	_tiles = new Tile[_width * _height];
-	memset(_tiles, 0, _width*_height*sizeof(Tile));
-	_spriteSheet = spriteSheet;
+  _tiles = new Tile[_width * _height];
+  memset(_tiles, 0, _width*_height*sizeof(Tile));
+  _spriteSheet = spriteSheet;
 }
 
 unsigned int Badger::Map::width() {
-	return _width;
+  return _width;
 }
 
 unsigned int Badger::Map::height() {
-	return _height;
+  return _height;
 }
 
 Badger::Tile* Badger::Map::tile(unsigned int x, unsigned int y) {
-	return &_tiles[(y * _width) + x];
+  return &_tiles[(y * _width) + x];
 }
 
 Badger::SpriteSheet* Badger::Map::spriteSheet() {
-	return _spriteSheet;
+  return _spriteSheet;
 }

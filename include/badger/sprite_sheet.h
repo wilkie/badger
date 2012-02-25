@@ -4,21 +4,21 @@
 #include <SDL_image.h>
 
 namespace Badger {
-	class SpriteSheet {
-		private:
-			unsigned int _texture;
-			unsigned int _width;
-			unsigned int _height;
+  class SpriteSheet {
+    private:
+      unsigned int _texture;
+      unsigned int _width;
+      unsigned int _height;
 
-			unsigned int _tileWidth;
-			unsigned int _tileHeight;
+      unsigned int _tileWidth;
+      unsigned int _tileHeight;
 
-		public:
-			SpriteSheet(const char* filename);
-			unsigned int texture();
+    public:
+      SpriteSheet(const char* filename);
+      unsigned int texture();
 
-			void textureCoordinates(unsigned int index, double coords[4]);
-	};
+      void textureCoordinates(unsigned int index, double coords[4]);
+  };
 }
 
 #endif

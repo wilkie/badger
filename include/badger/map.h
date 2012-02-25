@@ -5,24 +5,24 @@
 #include "badger/sprite_sheet.h"
 
 namespace Badger {
-	class Map {
-		private:
-			unsigned int _width;
-			unsigned int _height;
-			Tile*        _tiles;
+  class Map {
+    private:
+      unsigned int _width;
+      unsigned int _height;
+      Tile*        _tiles;
 
-			SpriteSheet* _spriteSheet;
+      SpriteSheet* _spriteSheet;
 
-		public:
-			Map(unsigned int width,
-			    unsigned int height,
-			    SpriteSheet* spriteSheet);
+    public:
+      Map(unsigned int width,
+          unsigned int height,
+          SpriteSheet* spriteSheet);
 
-			Tile*        tile(unsigned int x, unsigned int y);
-			unsigned int width();
-			unsigned int height();
-			SpriteSheet* spriteSheet();
-	};
+      Tile*        tile(unsigned int x, unsigned int y);
+      unsigned int width();
+      unsigned int height();
+      SpriteSheet* spriteSheet();
+  };
 }
 
 #endif

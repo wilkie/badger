@@ -12,32 +12,32 @@
 #endif
 
 namespace Badger {
-	struct VideoSettings {
-		unsigned int resolutionX;
-		unsigned int resolutionY;
-	};
+  struct VideoSettings {
+    unsigned int resolutionX;
+    unsigned int resolutionY;
+  };
 
-	class Engine {
-		public:
-			Engine(VideoSettings* video);
-			void map(Map* value);
+  class Engine {
+    public:
+      Engine(VideoSettings* video);
+      void map(Map* value);
 
-			void run();
+      void run();
 
-		private:
-			VideoSettings _video;
-			Renderer*     _renderer;
-			Viewport*     _mainViewport;
-			Map*          _map;
+    private:
+      VideoSettings _video;
+      Renderer*     _renderer;
+      Viewport*     _mainViewport;
+      Map*          _map;
 
-			bool _startSDL();
-			bool _initialize();
-			void _initViewport();
-			void _fireEvent(void* data);
+      bool _startSDL();
+      bool _initialize();
+      void _initViewport();
+      void _fireEvent(void* data);
 
-			void _draw();
-			void _update();
-	};
+      void _draw();
+      void _update();
+  };
 }
 
 #endif
