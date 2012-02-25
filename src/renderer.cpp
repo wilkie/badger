@@ -117,7 +117,7 @@ void Badger::Renderer::drawSquare(float x, float y, float width, float height, f
   // color array
   static const float colors[] = {0.72f,0.54f,0,  0.72f,0.54f,0,  0.52f,0.388f,0,  0.72f,0.388f,0}; // v0-v1-v2-v3
 
-  static const double texture_coords[] = {tu+tw, tv, tu, tv, tu, tv+th, tu+tw, tv+th}; // v0-v1-v2-v3
+  double texture_coords[] = {tu+tw, tv, tu, tv, tu, tv+th, tu+tw, tv+th}; // v0-v1-v2-v3
 
   static const unsigned char indices[] = {0, 1, 2, 3};
 
