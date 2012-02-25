@@ -47,6 +47,12 @@ namespace Badger {
 
       // The tiles that compose the map
       Tile*        _tiles;
+
+      /*
+       * Randomly assigns tiles from _tiles to be walls. Wall tiles use
+       * sprites in range 16-19 and are impassable.
+       */
+      void _generateWalls();
   };
 }
 

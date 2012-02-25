@@ -10,8 +10,11 @@ Badger::Map::Map(unsigned int width,
   _tiles = new Tile[_width * _height];
   memset(_tiles, 0, _width*_height*sizeof(Tile));
   for(unsigned int x = 0; x < _width * _height; x++) {
-    _tiles[x].spriteIndex = rand() % 20;
+    _tiles[x].spriteIndex = rand() % 16;
   }
+
+  _generateWalls();
+
   _spriteSheet = spriteSheet;
 }
 
@@ -29,4 +32,13 @@ Badger::Tile* Badger::Map::tile(unsigned int x, unsigned int y) {
 
 Badger::SpriteSheet* Badger::Map::spriteSheet() {
   return _spriteSheet;
+}
+
+void Badger::Map::_generateWalls() {
+  for(unsigned int x = 0; x < _width * _height; x++) {
+    if(rand() % 5 == 1) {
+      _tiles[x].spriteIndex = 16;
+      _tiles[x].passable    = false;
+    }
+  }
 }
