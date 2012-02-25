@@ -3,6 +3,7 @@
 
 #include <badger/renderer.h>
 #include <badger/viewport.h>
+#include <badger/map.h>
 
 // This is here instead of the cpp because main() is overriden by
 // preprocessor magicks.
@@ -19,12 +20,15 @@ namespace Badger {
 	class Engine {
 		public:
 			Engine(VideoSettings* video);
+			void map(Map* value);
+
 			void run();
 
 		private:
 			VideoSettings _video;
 			Renderer*     _renderer;
 			Viewport*     _mainViewport;
+			Map*          _map;
 
 			bool _startSDL();
 			bool _initialize();

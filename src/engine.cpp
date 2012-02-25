@@ -7,15 +7,20 @@ Badger::Engine::Engine(VideoSettings* video) {
 	if (!_initialize()) {
 		return;
 	}
-	_renderer = new Renderer();
+	_renderer     = new Renderer();
+	_mainViewport = new Viewport();
+	_renderer->initializeViewport(_video.resolutionX, _video.resolutionY);
 }
 
 void Badger::Engine::_draw() {
 	_renderer->setProjection(_video.resolutionX, _video.resolutionY, 1.0);
 	_renderer->clear();
-	_renderer->drawSquare(0,0,32,32);
-	_renderer->drawSquare(32,32,32,32);
-	_renderer->drawSquare(64,64,32,32);
+	_mainViewport->draw(_renderer);
+}
+
+void Badger::Engine::map(Badger::Map* value) {
+	_map = value;
+	_mainViewport->map(value);
 }
 
 void Badger::Engine::run() {
