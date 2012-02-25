@@ -11,7 +11,8 @@ void Badger::Viewport::draw(Renderer* renderer) {
       Tile* tile = _map->tile(x, y);
       double coords[4];
       _map->spriteSheet()->textureCoordinates(tile->spriteIndex, coords);
-      renderer->drawSquare((float)x*32, (float)y*32, (float)32, (float)32, coords[0], coords[1], coords[2], coords[3]);
+      renderer->drawSquare(x*32.0f, y*32.0f, 32.0f, 32.0f,
+                           coords[0], coords[1], coords[2], coords[3]);
     }
   }
 }
