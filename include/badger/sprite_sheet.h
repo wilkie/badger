@@ -6,10 +6,18 @@
 namespace Badger {
 	class SpriteSheet {
 		private:
-			SDL_Surface* _image;
+			unsigned int _texture;
+			unsigned int _width;
+			unsigned int _height;
+
+			unsigned int _tileWidth;
+			unsigned int _tileHeight;
 
 		public:
 			SpriteSheet(const char* filename);
+			unsigned int texture();
+
+			void textureCoordinates(unsigned int index, double coords[4]);
 	};
 }
 
