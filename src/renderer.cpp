@@ -101,8 +101,10 @@ void Badger::Renderer::drawArrays(const float vertices[],
   glDisableClientState(GL_NORMAL_ARRAY);
 }
 
-void Badger::Renderer::drawSquare(float x, float y, float width, float height,
-                                  double tu, double tv, double tw, double th) {
+void Badger::Renderer::drawSquare(float x,     float y,
+                                  float width, float height,
+                                  double tu,   double tv,
+                                  double tw,   double th) {
   // square ////////////////////////////////////////////////////////////////////
   //  v1------v0
   //  |       |
