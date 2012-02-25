@@ -29,15 +29,17 @@ void Badger::Renderer::clear() {
 }
 
 bool Badger::Renderer::initializeViewport(unsigned int width, unsigned int height) {
-  glClearColor(0, 0, 0, 0);
+  glClearColor(1, 1, 1, 1);
   glClearDepth(1.0f);
- 
+
   glViewport(0, 0, width, height);
-  
+
   glEnable(GL_TEXTURE_2D);
   glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
   glEnable(GL_CULL_FACE);
   glEnable(GL_DEPTH_TEST);
+  glEnable(GL_BLEND);
+  glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
   return true;
 }
@@ -46,7 +48,6 @@ void Badger::Renderer::setProjection(unsigned int width, unsigned int height, do
   glMatrixMode(GL_PROJECTION);
   glLoadIdentity();
 
-  double aspect = (double)width/(double)height;
   glOrtho(0, width, 0, height, -100, 100);
   glScaled(zoom, zoom, zoom);
 
@@ -100,7 +101,7 @@ void Badger::Renderer::drawArrays(const float vertices[],
   glDisableClientState(GL_NORMAL_ARRAY);
 }
 
-void Badger::Renderer::drawSquare(float x, float y, float width, float height, float tu, float tv, float tw, float th) {
+void Badger::Renderer::drawSquare(float x, float y, float width, float height, double tu, double tv, double tw, double th) {
   // square ////////////////////////////////////////////////////////////////////
   //  v1------v0
   //  |       |
