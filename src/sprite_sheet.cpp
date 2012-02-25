@@ -139,3 +139,7 @@ bool Badger::SpriteSheet::textureCoordinates(const char* name, double coords[4])
   }
   return false;
 }
+
+Badger::Sprite* Badger::SpriteSheet::sprite(unsigned int index) {
+  return &_sprites[index];
+}

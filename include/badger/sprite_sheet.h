@@ -68,6 +68,11 @@ namespace Badger {
        */
       bool textureCoordinates(const char* name, double coords[4]);
 
+      /*
+       * Returns: the Sprite at the given index.
+       */
+      Sprite* sprite(unsigned int index);
+
     private:
 
       // The OpenGL texture index.

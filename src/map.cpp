@@ -10,7 +10,7 @@ Badger::Map::Map(unsigned int width,
   _tiles = new Tile[_width * _height];
   memset(_tiles, 0, _width*_height*sizeof(Tile));
   for(unsigned int x = 0; x < _width * _height; x++) {
-    _tiles[x].spriteIndex = rand() % 5;
+    _tiles[x].spriteIndex = rand() % 20;
   }
   _spriteSheet = spriteSheet;
 }
