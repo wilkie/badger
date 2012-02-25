@@ -10,6 +10,8 @@ int main(int argc, char** argv) {
 	settings.resolutionY = HEIGHT;
 	Badger::Engine* engine = new Badger::Engine(&settings);
 	Badger::SpriteSheet* sheet = new Badger::SpriteSheet("assets/floortiles.png");
+	Badger::Map* map = new Badger::Map(100, 100, sheet);
+	engine->map(map);
 	engine->run();
 
 	return 0;
