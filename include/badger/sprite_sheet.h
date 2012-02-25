@@ -31,7 +31,7 @@ namespace Badger {
       unsigned int texture();
 
       void textureCoordinates(unsigned int index, double coords[4]);
-      void textureCoordinates(const char* name);
+      bool textureCoordinates(const char* name, double coords[4]);
   };
 }
 

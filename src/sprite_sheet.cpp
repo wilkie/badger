@@ -129,3 +129,13 @@ void Badger::SpriteSheet::textureCoordinates(unsigned int index, double coords[4
   coords[2] = tw;
   coords[3] = th;
 }
+
+bool Badger::SpriteSheet::textureCoordinates(const char* name, double coords[4]) {
+  for (unsigned int i = 0; i < _spriteCount; i++) {
+    if (strncmp(name, _sprites[i].name, 64) == 0) {
+      textureCoordinates(i, coords);
+      return true;
+    }
+  }
+  return false;
+}
