@@ -49,7 +49,7 @@ Badger::SpriteSheet::SpriteSheet(const char* filename) {
     }
   }
 
-  glTexImage2D(GL_TEXTURE_2D, 0, numColors, image->w, image->h, 0,
+  glTexImage2D(GL_TEXTURE_2D, 0, 4, image->w, image->h, 0,
                textureFormat, GL_UNSIGNED_BYTE, image->pixels);
 
   _width  = image->w;
