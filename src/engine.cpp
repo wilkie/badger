@@ -7,9 +7,6 @@ Badger::Engine::Engine(VideoSettings* video) {
   if (!_initialize()) {
     return;
   }
-  _renderer     = new Renderer();
-  _mainViewport = new Viewport();
-  _renderer->initializeViewport(_video.resolutionX, _video.resolutionY);
 }
 
 void Badger::Engine::_draw() {
@@ -54,6 +51,9 @@ bool Badger::Engine::_initialize() {
 }
 
 void Badger::Engine::_initViewport() {
+  _renderer     = new Renderer();
+  _mainViewport = new Viewport();
+  _renderer->initializeViewport(_video.resolutionX, _video.resolutionY);
 }
 
 bool Badger::Engine::_startSDL() {
