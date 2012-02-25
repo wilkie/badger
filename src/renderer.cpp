@@ -79,7 +79,7 @@ void Badger::Renderer::drawArrays(const float vertices[],
                                   const float normals[],
                                   const float colors[],
                                   const unsigned char indices[],
-                                  const float texture_coords[],
+                                  const double texture_coords[],
                                   unsigned int num) {
 
   glEnableClientState(GL_NORMAL_ARRAY);
@@ -90,7 +90,7 @@ void Badger::Renderer::drawArrays(const float vertices[],
   glNormalPointer(GL_FLOAT, 0, normals);
   glColorPointer(3, GL_FLOAT, 0, colors);
   glVertexPointer(3, GL_FLOAT, 0, vertices);
-  glTexCoordPointer(2, GL_FLOAT, 0, texture_coords);
+  glTexCoordPointer(2, GL_DOUBLE, 0, texture_coords);
 
   glDrawElements(GL_QUADS, num, GL_UNSIGNED_BYTE, indices);
 
@@ -117,7 +117,7 @@ void Badger::Renderer::drawSquare(float x, float y, float width, float height, f
   // color array
   static const float colors[] = {0.72f,0.54f,0,  0.72f,0.54f,0,  0.52f,0.388f,0,  0.72f,0.388f,0}; // v0-v1-v2-v3
 
-  static const float texture_coords[] = {tu+tw, tv, tu, tv, tu, tv+th, tu+tw, tv+th}; // v0-v1-v2-v3
+  static const double texture_coords[] = {tu+tw, tv, tu, tv, tu, tv+th, tu+tw, tv+th}; // v0-v1-v2-v3
 
   static const unsigned char indices[] = {0, 1, 2, 3};
 

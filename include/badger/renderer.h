@@ -18,7 +18,7 @@ namespace Badger {
                     const float normals[],
                     const float colors[],
                     const unsigned char indices[],
-                    const float texture_coords[],
+                    const double texture_coords[],
                     unsigned int num);
     void clear();
     void bindTexture(unsigned int texture);
