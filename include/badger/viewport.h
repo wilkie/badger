@@ -8,6 +8,7 @@ namespace Badger {
   class Viewport {
     private:
       Map* _map;
+
     public:
       Viewport();
       void map(Badger::Map* value);
