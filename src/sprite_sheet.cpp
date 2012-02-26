@@ -143,3 +143,11 @@ bool Badger::SpriteSheet::textureCoordinates(const char* name, double coords[4])
 Badger::Sprite* Badger::SpriteSheet::sprite(unsigned int index) {
   return &_sprites[index];
 }
+
+Badger::Sprite* Badger::SpriteSheet::sprite(const char* name) {
+  for (unsigned int i = 0; i < _spriteCount; i++) {
+    if (strncmp(name, _sprites[i].name, 64) == 0) {
+      return &_sprites[i];
+    }
+  }
+}

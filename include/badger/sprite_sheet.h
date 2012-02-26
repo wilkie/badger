@@ -73,6 +73,11 @@ namespace Badger {
        */
       Sprite* sprite(unsigned int index);
 
+      /*
+       * Returns: the Sprite by it's description.
+       */
+      Sprite* sprite(const char* name);
+
     private:
 
       // The OpenGL texture index.

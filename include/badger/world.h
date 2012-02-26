@@ -28,6 +28,11 @@ namespace Badger {
        */
       Actor* actor(unsigned int index);
 
+      /*
+       * Return: the number of actors currently in the world.
+       */
+      unsigned int actorCount();
+
     private:
       // The world map
       Map* _map;

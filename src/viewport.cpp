@@ -4,14 +4,14 @@ Badger::Viewport::Viewport() {
 }
 
 void Badger::Viewport::draw(Renderer* renderer) {
-  unsigned int x, y;
-  Map* map = _world->map();
+  double coords[4];
 
+  // draw the map
+  Map* map = _world->map();
   renderer->bindTexture(map->spriteSheet()->texture());
-  for (y = 0; y < map->height(); y++) {
-    for (x = 0; x < map->width(); x++) {
+  for (int y = map->height() - 1; y >= 0; y--) {
+    for (int x = 0; x < map->width(); x++) {
       Tile* tile = map->tile(x, y);
-      double coords[4];
       map->spriteSheet()->textureCoordinates(tile->spriteIndex, coords);
 
       Sprite* sprite = map->spriteSheet()->sprite(tile->spriteIndex);
@@ -19,6 +19,20 @@ void Badger::Viewport::draw(Renderer* renderer) {
                            (float)sprite->width, (float)sprite->height,
                            coords[0], coords[1], coords[2], coords[3]);
     }
+  }
+
+  // draw the actors
+  for (int x = 0; x < _world->actorCount(); x++) {
+    Badger::Actor* actor = _world->actor(x);
+    renderer->bindTexture(actor->spriteSheet()->texture());
+
+    // hard-coding the first sprite (base) for now...
+    actor->spriteSheet()->textureCoordinates("base", coords);
+
+    Sprite* sprite = actor->spriteSheet()->sprite("base");
+    renderer->drawSquare((float)actor->position().x, (float)actor->position().y,
+                         (float)sprite->width, (float)sprite->height,
+                         coords[0], coords[1], coords[2], coords[3]);
   }
 }
 

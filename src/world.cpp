@@ -12,6 +12,10 @@ Badger::Map* Badger::World::map() {
   return _map;
 }
 
+unsigned int Badger::World::actorCount() {
+  return _actorCount;
+}
+
 bool Badger::World::addActor(Actor* actor) {
   if(_actors == NULL) {
     _actors = new Actor*[_actorMax];
