@@ -8,4 +8,4 @@
 #include "badger/world.h"
 #include "badger/map.h"
 #include "badger/tile.h"
-#include "badger/player.h"
+#include "badger/actor.h"
