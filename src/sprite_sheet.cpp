@@ -89,7 +89,7 @@ void Badger::SpriteSheet::_loadStatSheet(const char* filename) {
   char* stat_sheet = _determineStatSheetFilename(filename);
 
   FILE* f = fopen(stat_sheet, "rt");
-  
+
   _spriteCount = 128;
   _sprites = new Sprite[_spriteCount];
 

@@ -12,6 +12,10 @@ int main(int argc, char** argv) {
   Badger::SpriteSheet* sheet = new Badger::SpriteSheet("assets/floortiles.png");
   Badger::Map* map = new Badger::Map(100, 100, sheet);
   Badger::World* world = new Badger::World(map);
+
+  Badger::SpriteSheet* player1SpriteSheet = new Badger::SpriteSheet("assets/blob.png");
+  Badger::Actor* player1 = new Badger::Actor(player1SpriteSheet);
+  world->addActor(player1);
   engine->world(world);
   engine->run();
 
