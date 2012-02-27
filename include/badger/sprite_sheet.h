@@ -1,7 +1,7 @@
 #ifndef BADGER_SPRITE_SHEET_H
 #define BADGER_SPRITE_SHEET_H
 
-#include <SDL_image.h>
+#include <SDL/SDL_image.h>
 
 namespace Badger {
   /*
