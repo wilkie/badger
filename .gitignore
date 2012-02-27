@@ -1,2 +1,3 @@
 *.swp
 *.exe
+build/linux/bin
