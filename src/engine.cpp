@@ -10,7 +10,7 @@ Badger::Engine::Engine(VideoSettings* video) {
 }
 
 void Badger::Engine::_draw() {
-  _renderer->setProjection(_video.resolutionX, _video.resolutionY, 1.0);
+  _renderer->setProjection(_video.resolutionX, _video.resolutionY, 2.0);
   _renderer->clear();
   _mainViewport->draw(_renderer);
 }
