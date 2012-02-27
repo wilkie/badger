@@ -8,4 +8,4 @@ all:
 
 actor_tester:
 	mkdir -p bin
-	g++ -o bin/actor_tester ../../test/config.cpp ../../test/actor_spec.cpp ../../src/actor.cpp ${CPPFLAGS}
+	g++ -o bin/actor_tester ../../test/actor_spec.cpp ../../src/actor.cpp ${CPPFLAGS}
