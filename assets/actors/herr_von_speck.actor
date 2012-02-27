@@ -1,0 +1,9 @@
+width 0
+height 0
+
+sprites assets/graphics/herr_von_speck.png
+
+  walk_up   up_*
+walk_down down_*
+walk_left left_*
+walk_rght rght_*

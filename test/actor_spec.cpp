@@ -3,6 +3,9 @@
 
 #include "badger/actor.h"
 
+// Mocks
+Badger::SpriteSheet::SpriteSheet(const char* filename) {}
+
 describe (Actor) {
   describe (position) {
     it ("should yield the x coordinate specified when it was constructed") {
