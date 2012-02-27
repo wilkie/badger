@@ -205,7 +205,6 @@ static void printDocumentation() {
 static void reportTests() {
   printf("  Passes: %d\n", _describe.totalPasses);
   printf("Failures: %d\n", _describe.totalFails);
-  printf("\n");
 
   for(unsigned int i = 0; i < _describe.totalFails; i++) {
     printFailure(_describe._failedTests[i]);
