@@ -17,6 +17,7 @@
   <PropertyGroup Label="Globals">
     <ProjectGuid>{64FA499A-20A2-48F6-BF68-31D9E999C6BD}</ProjectGuid>
     <RootNamespace>isotasty</RootNamespace>
+    <ProjectName>actor_tester</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
