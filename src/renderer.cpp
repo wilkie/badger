@@ -11,7 +11,6 @@
 
 #include <math.h>
 #include <stdio.h>
-#include <glut.h>
 
 Badger::Renderer::Renderer() {
 }
