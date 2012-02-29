@@ -150,4 +150,37 @@ Badger::Sprite* Badger::SpriteSheet::sprite(const char* name) {
       return &_sprites[i];
     }
   }
+  return NULL;
+}
+
+int Badger::SpriteSheet::enumerateSprites(const char* wildcard, unsigned int last) {
+  int star_pos = -1;
+
+  // Determine where the '*' is in the wildcard
+  for (unsigned int i = 0; i < strlen(wildcard); i++) {
+    if (wildcard[i] == '*') {
+      star_pos = i;
+      break;
+    }
+  }
+
+  if (star_pos == -1) {
+    // No star is found... just find by the name
+    for (unsigned int i = 0; i < _spriteCount; i++) {
+      if (strncmp(wildcard, _sprites[i].name, 64) == 0) {
+        return i;
+      }
+    }
+    return -1;
+  }
+
+  // Look for a wildcard match
+  for (unsigned int i = last; i < _spriteCount; i++) {
+    if (strncmp(wildcard, _sprites[i].name, star_pos) == 0) {
+      // Matches in the front
+      return i;
+    }
+  }
+
+  return -1;
 }

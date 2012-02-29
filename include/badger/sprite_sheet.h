@@ -69,14 +69,24 @@ namespace Badger {
       bool textureCoordinates(const char* name, double coords[4]);
 
       /*
-       * Returns: the Sprite at the given index.
+       *  Returns: the Sprite at the given index.
        */
       Sprite* sprite(unsigned int index);
 
       /*
-       * Returns: the Sprite by it's description.
+       *  Returns: the Sprite by it's description.
        */
       Sprite* sprite(const char* name);
+      
+      /*
+       *  Returns: -1 when no more sprites match, or the index
+       *    of the next available sprite that matches the wildcard
+       *    given by name. For instance wildcard = "down_*" will yield
+       *    the next sprite after or including the index at last
+       *    that begins with "down_". Use last = 0 to start, and
+       *    then pass the return value + 1 in the next invocation.
+       */
+      int enumerateSprites(const char* wildcard, unsigned int last);
 
     private:
 

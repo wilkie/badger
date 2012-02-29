@@ -1,7 +1,7 @@
-#include "harness.h"
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include "harness.h"
 
 #ifdef _WIN32
   #define QUERYPERFORMANCECOUNTER

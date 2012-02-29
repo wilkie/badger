@@ -3,8 +3,18 @@
 
 #include <badger/sprite_sheet.h>
 #include <badger/position.h>
+#include <vector>
 
 namespace Badger {
+
+  struct AnimationFrame {
+    double textureCoordinates[4];
+  };
+
+  struct Animation {
+    char name[129];
+    std::vector<AnimationFrame*> frames;
+  };
 
   class Actor {
     public:
@@ -17,6 +27,7 @@ namespace Badger {
             SpriteSheet* spriteSheet,
             unsigned int x,
             unsigned int y);
+      ~Actor();
 
       /*
        * Return: the Badger::SpriteSheet for the Badger::Actor.
@@ -30,11 +41,23 @@ namespace Badger {
 
     private:
 
+      // Creates a new animation structure
+      Animation* _newAnimation(const char* name);
+
       // The set of sprites for the Actor.
       SpriteSheet* _spriteSheet;
 
       // The current position of the Actor in the world.
       Position _position;
+
+      // Stores the details about animations.
+      std::vector<Animation*> _animations;
+
+      // Stores the current animation
+      Animation* _currentAnimation;
+
+      // Stores the current frame
+      unsigned int _currentFrame;
   };
 }
 
