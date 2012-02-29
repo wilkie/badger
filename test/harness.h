@@ -1,5 +1,5 @@
-#ifndef HARNESS_H
-#define HARNESS_H
+#ifndef HARNESS_H_HEADER
+#define HARNESS_H_HEADER
 
 #include <stdio.h>
 #include <string.h>
@@ -47,6 +47,12 @@ class NewTest {
 };
 
 extern NewDescribe _describe;
+
+#endif
+
+#ifndef CPP_BEHAVE_DO_NOT_DEFINE
+#ifndef HARNESS_H
+#define HARNESS_H
 
 // This macro will place quotes around the given token
 #define STRINGIFY_2(x) #x
@@ -99,5 +105,7 @@ extern NewDescribe _describe;
     NewDescribe _describe(STRINGIFY(x));                                    \
   }                                                                         \
 namespace Describe##x
+
+#endif
 
 #endif

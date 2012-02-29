@@ -1,7 +1,10 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+
+#define CPP_BEHAVE_DO_NOT_DEFINE
 #include "harness.h"
+#undef  CPP_BEHAVE_DO_NOT_DEFINE
 
 #ifdef _WIN32
   #define QUERYPERFORMANCECOUNTER

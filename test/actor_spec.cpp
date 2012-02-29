@@ -1,11 +1,14 @@
-#include "badger/actor.h"
-
 #include "config.h"
-#include "harness.h"
+#include "badger/actor.h"
 
 // Mocks
 Badger::SpriteSheet::SpriteSheet(const char* filename) {}
+Badger::SpriteSheet::~SpriteSheet() {}
 int Badger::SpriteSheet::enumerateSprites(const char* wildcard, unsigned int last) { return -1; }
+Badger::Sprite* Badger::SpriteSheet::sprite(unsigned int index) { return NULL; }
+void Badger::SpriteSheet::textureCoordinates(unsigned int index, double coords[4]) { }
+
+#include "harness.h"
 
 describe (Actor) {
   describe (position) {
