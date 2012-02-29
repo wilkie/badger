@@ -11,6 +11,15 @@ namespace Badger {
     void drawCube(float x, float y, float z, float width, float height, float depth);
     void drawArrays(const float vertices[],
                     const float normals[],
+                    const unsigned char indices[],
+                    unsigned int num);
+    void drawArrays(const float vertices[],
+                    const float normals[],
+                    const unsigned char indices[],
+                    const double texture_coords[],
+                    unsigned int num);
+    void drawArrays(const float vertices[],
+                    const float normals[],
                     const float colors[],
                     const unsigned char indices[],
                     unsigned int num);
