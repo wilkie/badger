@@ -4,6 +4,8 @@
 #include <badger/map.h>
 #include <badger/actor.h>
 
+#include <vector>
+
 namespace Badger {
 
   class World {
@@ -38,14 +40,7 @@ namespace Badger {
       Map* _map;
 
       // Contains the actors that are fighting for justice
-      Actor** _actors;
-
-      // Information about the _actors array.
-      unsigned int _actorCount;
-      unsigned int _actorMax;
-
-      // Adjust the size of the actor array if it needs to be larger.
-      void _resizeActorArray();
+      std::vector<Actor*> _actors;
   };
 }
 
