@@ -60,16 +60,6 @@ Badger::SpriteSheet::SpriteSheet(const char* filename) {
   SDL_FreeSurface(image);
 }
 
-void Badger::SpriteSheet::_resizeSpriteArray() {
-  Sprite* old = _sprites;
-
-  _sprites = new Sprite[_spriteCount+128];
-  memcpy(_sprites, old, sizeof(Sprite) * _spriteCount);
-  _spriteCount += 128;
-
-  delete [] old;
-}
-
 char* Badger::SpriteSheet::_determineStatSheetFilename(const char* filename) {
   char* stat_sheet = new char[strlen(filename)+2];
   strncpy(stat_sheet, filename, strlen(filename));
@@ -90,24 +80,16 @@ void Badger::SpriteSheet::_loadStatSheet(const char* filename) {
 
   FILE* f = fopen(stat_sheet, "rt");
 
-  _spriteCount = 128;
-  _sprites = new Sprite[_spriteCount];
-
   unsigned int spritesLoaded = 0;
   while(!feof(f)) {
-    if (_spriteCount == spritesLoaded) {
-      _resizeSpriteArray();
-    }
-    Sprite* sprite = &_sprites[spritesLoaded];
+    Sprite* sprite = new Sprite;
+    _sprites.push_back(sprite);
     fscanf(f, "%64s %d, %d, %d, %d\n", sprite->name,
                                     &sprite->x,
                                     &sprite->y,
                                     &sprite->width,
                                     &sprite->height);
-    spritesLoaded++;
   }
-
-  _spriteCount = spritesLoaded;
 
   delete [] stat_sheet;
 }
@@ -117,7 +99,7 @@ unsigned int Badger::SpriteSheet::texture() {
 }
 
 void Badger::SpriteSheet::textureCoordinates(unsigned int index, double coords[4]) {
-  Sprite* sprite = &_sprites[index];
+  Sprite* sprite = _sprites[index];
 
   double tu = (double)sprite->x      / (double)_width;
   double tv = (double)sprite->y      / (double)_height;
@@ -131,8 +113,8 @@ void Badger::SpriteSheet::textureCoordinates(unsigned int index, double coords[4
 }
 
 bool Badger::SpriteSheet::textureCoordinates(const char* name, double coords[4]) {
-  for (unsigned int i = 0; i < _spriteCount; i++) {
-    if (strncmp(name, _sprites[i].name, 64) == 0) {
+  for (unsigned int i = 0; i < _sprites.size(); i++) {
+    if (strncmp(name, _sprites[i]->name, 64) == 0) {
       textureCoordinates(i, coords);
       return true;
     }
@@ -141,13 +123,13 @@ bool Badger::SpriteSheet::textureCoordinates(const char* name, double coords[4])
 }
 
 Badger::Sprite* Badger::SpriteSheet::sprite(unsigned int index) {
-  return &_sprites[index];
+  return _sprites[index];
 }
 
 Badger::Sprite* Badger::SpriteSheet::sprite(const char* name) {
-  for (unsigned int i = 0; i < _spriteCount; i++) {
-    if (strncmp(name, _sprites[i].name, 64) == 0) {
-      return &_sprites[i];
+  for (unsigned int i = 0; i < _sprites.size(); i++) {
+    if (strncmp(name, _sprites[i]->name, 64) == 0) {
+      return _sprites[i];
     }
   }
   return NULL;
@@ -166,8 +148,8 @@ int Badger::SpriteSheet::enumerateSprites(const char* wildcard, unsigned int las
 
   if (star_pos == -1) {
     // No star is found... just find by the name
-    for (unsigned int i = 0; i < _spriteCount; i++) {
-      if (strncmp(wildcard, _sprites[i].name, 64) == 0) {
+    for (unsigned int i = 0; i < _sprites.size(); i++) {
+      if (strncmp(wildcard, _sprites[i]->name, 64) == 0) {
         return i;
       }
     }
@@ -175,8 +157,8 @@ int Badger::SpriteSheet::enumerateSprites(const char* wildcard, unsigned int las
   }
 
   // Look for a wildcard match
-  for (unsigned int i = last; i < _spriteCount; i++) {
-    if (strncmp(wildcard, _sprites[i].name, star_pos) == 0) {
+  for (unsigned int i = last; i < _sprites.size(); i++) {
+    if (strncmp(wildcard, _sprites[i]->name, star_pos) == 0) {
       // Matches in the front
       return i;
     }

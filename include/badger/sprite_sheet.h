@@ -3,6 +3,8 @@
 
 #include <SDL/SDL_image.h>
 
+#include <vector>
+
 namespace Badger {
   /*
    *  Describes an individual sprite on a Badger::SpriteSheet
@@ -97,14 +99,8 @@ namespace Badger {
       unsigned int _width;
       unsigned int _height;
 
-      // The number of sprites contained in the sprite sheet.
-      unsigned int _spriteCount;
-
       // An array of all sprites in the sprite sheet.
-      Sprite*      _sprites;
-
-      // Will resize the internal array of sprites (_sprites) when it is full.
-      void         _resizeSpriteArray();
+      std::vector<Sprite*> _sprites;
 
       // Yields the filename of the sprite description file from the given
       //   image filename.
