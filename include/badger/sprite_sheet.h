@@ -51,6 +51,11 @@ namespace Badger {
       SpriteSheet(const char* filename);
 
       /*
+       *  Deconstructor
+       */
+      ~SpriteSheet();
+
+      /*
        *  Returns: The texture id usable by the Renderer.
        */
       unsigned int texture();

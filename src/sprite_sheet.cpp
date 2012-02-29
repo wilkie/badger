@@ -11,6 +11,12 @@
 
 #include <math.h>
 
+Badger::SpriteSheet::~SpriteSheet() {
+  for (unsigned int i = 0; i < _sprites.size(); i++) {
+    delete _sprites[i];
+  }
+}
+
 Badger::SpriteSheet::SpriteSheet(const char* filename) {
   SDL_RWops   *rwop;
   SDL_Surface *image;
