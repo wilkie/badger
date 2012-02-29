@@ -48,7 +48,7 @@ Badger::Actor::Actor(const char* actorFile,
       // Store all of the sprites
       int spriteIndex = -1;
       do {
-        spriteIndex = _spriteSheet->enumerateSprites(val, spriteIndex);
+        spriteIndex = _spriteSheet->enumerateSprites(val, spriteIndex+1);
         if (spriteIndex != -1) {
           AnimationFrame* frame = new AnimationFrame;
           _spriteSheet->textureCoordinates(spriteIndex, frame->textureCoordinates);
@@ -79,6 +79,17 @@ void Badger::Actor::animate(const char* animationName) {
   for (unsigned int i = 0; i < _animations.size(); i++) {
     if (strncmp(_animations[i]->name, animationName, 128) == 0) {
       _currentAnimation = _animations[i];
+      _currentFrame = 0;
     }
+  }
+}
+
+void Badger::Actor::nextFrame() {
+  _currentFrame += 1;
+  if (_currentAnimation->frames.size() == 0) {
+    _currentFrame = 0;
+  }
+  else {
+    _currentFrame %= _currentAnimation->frames.size();
   }
 }

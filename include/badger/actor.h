@@ -44,6 +44,11 @@ namespace Badger {
        */
       void animate(const char* animationName);
 
+      /*
+       *  Advances the frame to the next sprite.
+       */
+      void nextFrame();
+
     private:
 
       // Creates a new animation structure

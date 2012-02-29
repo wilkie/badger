@@ -26,7 +26,8 @@ void Badger::Engine::run() {
     if (!SDL_PollEvent(&event)) {
       _draw();
       SDL_GL_SwapBuffers();
-      SDL_Delay(1);
+      SDL_Delay(100);
+      _mainViewport->world()->actor(0)->nextFrame();
     }
     else {
       if(event.type == SDL_QUIT) {
