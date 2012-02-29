@@ -49,6 +49,12 @@ namespace Badger {
        */
       void nextFrame();
 
+      /*
+       *  Fills the given array with the texture coordinates of the current
+       *    sprite.
+       */
+      void textureCoordinates(double coords[4]);
+
     private:
 
       // Creates a new animation structure

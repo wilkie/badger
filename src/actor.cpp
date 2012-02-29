@@ -93,3 +93,12 @@ void Badger::Actor::nextFrame() {
     _currentFrame %= _currentAnimation->frames.size();
   }
 }
+
+void Badger::Actor::textureCoordinates(double coords[4]) {
+  AnimationFrame* currentFrame = _currentAnimation->frames[_currentFrame];
+
+  coords[0] = currentFrame->textureCoordinates[0];
+  coords[1] = currentFrame->textureCoordinates[1];
+  coords[2] = currentFrame->textureCoordinates[2];
+  coords[3] = currentFrame->textureCoordinates[3];
+}
