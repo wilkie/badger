@@ -7,6 +7,9 @@ Badger::Engine::Engine(VideoSettings* video) {
   if (!_initialize()) {
     return;
   }
+
+  _world = NULL;
+  _inputHandler = NULL;
 }
 
 void Badger::Engine::_draw() {
@@ -18,6 +21,10 @@ void Badger::Engine::_draw() {
 void Badger::Engine::world(Badger::World* value) {
   _world = value;
   _mainViewport->world(value);
+}
+
+void Badger::Engine::inputHandler(Badger::InputHandler* value) {
+  _inputHandler = value;
 }
 
 void Badger::Engine::run() {

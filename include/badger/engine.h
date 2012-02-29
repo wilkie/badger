@@ -3,6 +3,7 @@
 
 #include <badger/renderer.h>
 #include <badger/viewport.h>
+#include <badger/input_handler.h>
 #include <badger/map.h>
 
 // This is here instead of the cpp because main() is overriden by
@@ -43,6 +44,11 @@ namespace Badger {
       void world(World* value);
 
       /*
+       *  Attach the given Badger::InputHandler.
+       */
+      void inputHandler(InputHandler* value);
+
+      /*
        *  Execute the game loop. There is no escape from this function until the game ends.
        */
       void run();
@@ -54,6 +60,7 @@ namespace Badger {
       Renderer*     _renderer;
       Viewport*     _mainViewport;
       World*        _world;
+      InputHandler* _inputHandler;
 
       // Initialization methods
       bool _startSDL();
