@@ -110,15 +110,19 @@ void Badger::Engine::_fireEvent(void* data) {
     switch(event->key.keysym.sym) {
       case SDLK_LEFT:
       case SDLK_h:
+        _world->actor(0)->animate("walk_left");
         break;
       case SDLK_RIGHT:
       case SDLK_l:
+        _world->actor(0)->animate("walk_rght");
         break;
       case SDLK_UP:
       case SDLK_k:
+        _world->actor(0)->animate("walk_up");
         break;
       case SDLK_DOWN:
       case SDLK_j:
+        _world->actor(0)->animate("walk_down");
         break;
       case SDLK_COMMA:
         break;

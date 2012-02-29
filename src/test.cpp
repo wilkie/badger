@@ -14,7 +14,7 @@ int main(int argc, char** argv) {
   Badger::World* world = new Badger::World(map);
 
   Badger::Actor* player1 = new Badger::Actor("assets/actors/herr_von_speck.actor", NULL, 40, 50);
-  player1->animate("walk_down");
+  player1->animate("walk_left");
   world->addActor(player1);
   engine->world(world);
   engine->run();
