@@ -73,3 +73,12 @@ Badger::SpriteSheet* Badger::Actor::spriteSheet() {
 Badger::Position Badger::Actor::position() {
   return _position;
 }
+
+void Badger::Actor::animate(const char* animationName) {
+  // Look-up the animation
+  for (unsigned int i = 0; i < _animations.size(); i++) {
+    if (strncmp(_animations[i]->name, animationName, 128) == 0) {
+      _currentAnimation = _animations[i];
+    }
+  }
+}

@@ -19,9 +19,9 @@ namespace Badger {
   class Actor {
     public:
       /*
-       * Constructs a Badger::Actor using the actor files in the
-       * given filepath. The sprite used is defined by the given
-       * Badger::SpriteSheet.
+       *  Constructs a Badger::Actor using the actor files in the
+       *    given filepath. The sprite used is defined by the given
+       *    Badger::SpriteSheet.
        */
       Actor(const char* actorFile,
             SpriteSheet* spriteSheet,
@@ -30,14 +30,19 @@ namespace Badger {
       ~Actor();
 
       /*
-       * Return: the Badger::SpriteSheet for the Badger::Actor.
+       *  Return: the Badger::SpriteSheet for the Badger::Actor.
        */
       SpriteSheet* spriteSheet();
 
       /*
-       * Return: the Badger::Position for the Badger::Actor.
+       *  Return: the Badger::Position for the Badger::Actor.
        */
       Position position();
+
+      /*
+       *  Sets the current animation to be played by this Badger::Actor.
+       */
+      void animate(const char* animationName);
 
     private:
 
