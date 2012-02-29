@@ -155,10 +155,6 @@ void Badger::Renderer::drawSquare(float x,     float y,
   static const float normals[] = {
     0, 0, 1,  0, 0, 1,  0,  0, 1, 0,  0, 1}; // v0-v1-v2-v3
 
-  // color array
-  static const float colors[] = {
-    0.7f, 0.5f, 0, 0.7f, 0.5f, 0, 0.5f, 0.4f, 0, 0.7f, 0.4f, 0}; // v0-v1-v2-v3
-
   double texture_coords[] = {
     tu+tw, tv, tu, tv, tu, tv+th, tu+tw, tv+th}; // v0-v1-v2-v3
 
@@ -173,7 +169,7 @@ void Badger::Renderer::drawSquare(float x,     float y,
   glTranslatef(x, y, 0);
   glScalef(half_width, half_height, 1.0);
 
-  drawArrays(vertices, normals, colors, indices, texture_coords, 4);
+  drawArrays(vertices, normals, indices, texture_coords, 4);
 
   glPopMatrix();
 }
