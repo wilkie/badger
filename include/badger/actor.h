@@ -8,6 +8,7 @@
 namespace Badger {
 
   struct AnimationFrame {
+    Sprite* sprite;
     double textureCoordinates[4];
   };
 
@@ -54,6 +55,12 @@ namespace Badger {
        *    sprite.
        */
       void textureCoordinates(double coords[4]);
+
+      /*
+       *  Returns the Badger::Sprite for the current sprite for this
+       *    Badger::Actor.
+       */
+      Sprite* sprite();
 
     private:
 

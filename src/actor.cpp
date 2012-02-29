@@ -52,6 +52,7 @@ Badger::Actor::Actor(const char* actorFile,
         if (spriteIndex != -1) {
           AnimationFrame* frame = new AnimationFrame;
           _spriteSheet->textureCoordinates(spriteIndex, frame->textureCoordinates);
+          frame->sprite = _spriteSheet->sprite(spriteIndex);
           newAnimation->frames.push_back(frame);
         }
       } while(spriteIndex != -1);
@@ -101,4 +102,8 @@ void Badger::Actor::textureCoordinates(double coords[4]) {
   coords[1] = currentFrame->textureCoordinates[1];
   coords[2] = currentFrame->textureCoordinates[2];
   coords[3] = currentFrame->textureCoordinates[3];
+}
+
+Badger::Sprite* Badger::Actor::sprite() {
+  return _currentAnimation->frames[_currentFrame]->sprite;
 }

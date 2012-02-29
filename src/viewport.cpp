@@ -26,10 +26,9 @@ void Badger::Viewport::draw(Renderer* renderer) {
     Badger::Actor* actor = _world->actor(x);
     renderer->bindTexture(actor->spriteSheet()->texture());
 
-    // hard-coding the first sprite (base) for now...
-    actor->spriteSheet()->textureCoordinates("down_0", coords);
-
-    Sprite* sprite = actor->spriteSheet()->sprite("down_0");
+    // Get texture coordinates for actor
+    actor->textureCoordinates(coords);
+    Sprite* sprite = actor->sprite();
     renderer->drawSquare((float)actor->position().x, (float)actor->position().y,
                          (float)sprite->width, (float)sprite->height,
                          coords[0], coords[1], coords[2], coords[3]);
