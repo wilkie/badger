@@ -10,7 +10,19 @@ Badger::Engine::Engine(VideoSettings* video) {
   }
 
   _world = NULL;
-  _inputHandler = NULL;
+  _inputHandler = new InputHandler();
+
+  // Adding some events just because
+  KeyBinding binding = {Badger::Key::NONE};
+
+  binding.key = Badger::Key::LEFT;
+  _inputHandler->registerEvent("Walk left", 1, &binding, NULL);
+  binding.key = Badger::Key::RIGHT;
+  _inputHandler->registerEvent("Walk right", 2, &binding, NULL);
+  binding.key = Badger::Key::UP;
+  _inputHandler->registerEvent("Walk up", 3, &binding, NULL);
+  binding.key = Badger::Key::DOWN;
+  _inputHandler->registerEvent("Walk down", 4, &binding, NULL);
 }
 
 void Badger::Engine::_draw() {
@@ -32,21 +44,27 @@ void Badger::Engine::run() {
   SDL_Event event;
   Clock* clock = new Clock();
   while(true) {
-    double elapsed = clock->elapsedTime();
-    if (!SDL_PollEvent(&event)) {
-      _world->update(elapsed);
-      _draw();
-      SDL_GL_SwapBuffers();
-    }
-    else {
+    if (SDL_PollEvent(&event)) {
       if(event.type == SDL_QUIT) {
         break;
       }
       _fireEvent(&event);
     }
+
+    // Get the time since the last draw/update
+    double elapsed = clock->elapsedTime();
+
+    // Update the world
+    _world->update(elapsed);
+    
+    // Draw the world
+    _draw();
+
+    // Display
+    SDL_GL_SwapBuffers();
   }
 
-  // destruct SDL
+  // Destruct SDL
   SDL_Quit();
 }
 
@@ -109,37 +127,67 @@ bool Badger::Engine::_startSDL() {
 
 void Badger::Engine::_fireEvent(void* data) {
   SDL_Event* event = (SDL_Event*)data;
-  if (event->type == SDL_MOUSEBUTTONDOWN) { 
-    switch(event->button.button) {
-      case SDL_BUTTON_LEFT:
+  if (event->type == SDL_KEYDOWN) {
+    Badger::KeyBinding binding = {Badger::Key::NONE};
+    switch (event->key.keysym.sym) {
+      case SDLK_LEFT:
+        binding.key = Badger::Key::LEFT;
+        break;
+      case SDLK_RIGHT:
+        binding.key = Badger::Key::RIGHT;
+        break;
+      case SDLK_UP:
+        binding.key = Badger::Key::UP;
+        break;
+      case SDLK_DOWN:
+        binding.key = Badger::Key::DOWN;
+        break;
+      default:
+        break;
+    }
+
+    int eventType = _inputHandler->yieldEvent(&binding);
+
+    switch (eventType) {
+      case 1:
+        _world->actor(0)->animate("walk_left");
+        break;
+
+      case 2:
+        _world->actor(0)->animate("walk_rght");
+        break;
+
+      case 3:
+        _world->actor(0)->animate("walk_up");
+        break;
+
+      case 4:
+        _world->actor(0)->animate("walk_down");
+        break;
+
+      default:
         break;
     }
   }
-  else if (event->type == SDL_KEYDOWN) {
-    switch(event->key.keysym.sym) {
-      case SDLK_LEFT:
-      case SDLK_h:
-        _world->actor(0)->animate("walk_left");
+  else if (event->type == SDL_KEYUP) {
+    Badger::KeyBinding binding = {Badger::Key::NONE};
+    binding.key = Badger::Key::LEFT;
+    int eventType = _inputHandler->yieldEvent(&binding);
+
+    switch (eventType) {
+      case 1:
         break;
-      case SDLK_RIGHT:
-      case SDLK_l:
-        _world->actor(0)->animate("walk_rght");
+
+      case 2:
         break;
-      case SDLK_UP:
-      case SDLK_k:
-        _world->actor(0)->animate("walk_up");
+
+      case 3:
         break;
-      case SDLK_DOWN:
-      case SDLK_j:
-        _world->actor(0)->animate("walk_down");
+
+      case 4:
         break;
-      case SDLK_COMMA:
-        break;
-      case SDLK_PERIOD:
-        break;
-      case SDLK_EQUALS:
-        break;
-      case SDLK_MINUS:
+
+      default:
         break;
     }
   }
