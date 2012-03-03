@@ -34,9 +34,9 @@ void Badger::Engine::run() {
   while(true) {
     double elapsed = clock->elapsedTime();
     if (!SDL_PollEvent(&event)) {
+      _world->update(elapsed);
       _draw();
       SDL_GL_SwapBuffers();
-      _mainViewport->world()->actor(0)->nextFrame();
     }
     else {
       if(event.type == SDL_QUIT) {

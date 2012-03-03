@@ -11,29 +11,34 @@ namespace Badger {
   class World {
     public:
       /*
-       * Creates a whole new Badger::World!
+       *  Creates a whole new Badger::World!
        */
       World(Badger::Map* map);
 
       /*
-       * Return: the map of the world.
+       *  Return: the map of the world.
        */
       Badger::Map* map();
 
       /*
-       * Puts the given actor into the world.
+       *  Puts the given actor into the world.
        */
       bool addActor(Badger::Actor* actor);
 
       /*
-       * Return: the actor at the given index.
+       *  Return: the actor at the given index.
        */
       Actor* actor(unsigned int index);
 
       /*
-       * Return: the number of actors currently in the world.
+       *  Return: the number of actors currently in the world.
        */
       unsigned int actorCount();
+
+      /*
+       *  Updates the world state to represent the elapsed time.
+       */
+      void update(double elapsed);
 
     private:
       // The world map

@@ -20,3 +20,9 @@ bool Badger::World::addActor(Actor* actor) {
 Badger::Actor* Badger::World::actor(unsigned int index) {
   return _actors[index];
 }
+
+void Badger::World::update(double elapsed) {
+  for (unsigned int i = 0; i < _actors.size(); i++) {
+    _actors[i]->update(elapsed);
+  }
+}

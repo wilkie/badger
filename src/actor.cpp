@@ -16,6 +16,8 @@ Badger::Actor::Actor(const char* actorFile,
                      unsigned int y) {
   _currentAnimation = NULL;
   _currentFrame = 0;
+  _frame = NULL;
+  _currentTime = 0;
 
   _spriteSheet = spriteSheet;
 
@@ -81,6 +83,8 @@ void Badger::Actor::animate(const char* animationName) {
     if (strncmp(_animations[i]->name, animationName, 128) == 0) {
       _currentAnimation = _animations[i];
       _currentFrame = 0;
+      _frame = _currentAnimation->frames[_currentFrame];
+      return;
     }
   }
 }
@@ -93,17 +97,24 @@ void Badger::Actor::nextFrame() {
   else {
     _currentFrame %= _currentAnimation->frames.size();
   }
+  _frame = _currentAnimation->frames[_currentFrame];
+  _currentTime = 0;
 }
 
 void Badger::Actor::textureCoordinates(double coords[4]) {
-  AnimationFrame* currentFrame = _currentAnimation->frames[_currentFrame];
-
-  coords[0] = currentFrame->textureCoordinates[0];
-  coords[1] = currentFrame->textureCoordinates[1];
-  coords[2] = currentFrame->textureCoordinates[2];
-  coords[3] = currentFrame->textureCoordinates[3];
+  coords[0] = _frame->textureCoordinates[0];
+  coords[1] = _frame->textureCoordinates[1];
+  coords[2] = _frame->textureCoordinates[2];
+  coords[3] = _frame->textureCoordinates[3];
 }
 
 Badger::Sprite* Badger::Actor::sprite() {
-  return _currentAnimation->frames[_currentFrame]->sprite;
+  return _frame->sprite;
+}
+
+void Badger::Actor::update(double elapsed) {
+  _currentTime += elapsed;
+  if (_currentTime > 0.08) {
+    nextFrame();
+  }
 }

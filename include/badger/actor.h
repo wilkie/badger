@@ -62,6 +62,11 @@ namespace Badger {
        */
       Sprite* sprite();
 
+      /*
+       *  Updates the current time for the Actor. Affects animations and movements.
+       */
+      void update(double elapsed);
+
     private:
 
       // Creates a new animation structure
@@ -81,6 +86,10 @@ namespace Badger {
 
       // Stores the current frame
       unsigned int _currentFrame;
+      AnimationFrame* _frame;
+
+      // time since last frame
+      double _currentTime;
   };
 }
 
