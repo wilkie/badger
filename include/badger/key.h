@@ -4,7 +4,7 @@
 namespace Badger {
   namespace Key {
     enum Code {
-      None,
+      NONE,
 
       F1,
       F2,

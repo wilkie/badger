@@ -17,8 +17,20 @@ void Badger::InputHandler::registerEvent(const char* name,
 
   binding->name      = name;
   binding->value     = value;
-  binding->primary   = *primary;
-  binding->secondary = *secondary;
+
+  if (primary == NULL) {
+    binding->primary.key = Badger::Key::NONE;
+  }
+  else {
+    binding->primary = *primary;
+  }
+
+  if (secondary == NULL) {
+    binding->secondary.key = Badger::Key::NONE;
+  }
+  else {
+    binding->secondary = *secondary;
+  }
 
   _bindings.push_back(binding);
 }
@@ -27,7 +39,12 @@ void Badger::InputHandler::rebindPrimary(const char* name,
                                          KeyBinding* primary) {
   for (unsigned int i = 0; i < _bindings.size(); i++) {
     if (strncmp(_bindings[i]->name, name, 128) == 0) {
-      _bindings[i]->primary = *primary;
+      if (primary == NULL) {
+        _bindings[i]->primary.key = Badger::Key::NONE;
+      }
+      else {
+        _bindings[i]->primary = *primary;
+      }
       return;
     }
   }
@@ -37,7 +54,12 @@ void Badger::InputHandler::rebindSecondary(const char* name,
                                            KeyBinding* secondary) {
   for (unsigned int i = 0; i < _bindings.size(); i++) {
     if (strncmp(_bindings[i]->name, name, 128) == 0) {
-      _bindings[i]->secondary = *secondary;
+      if (secondary == NULL) {
+        _bindings[i]->secondary.key = Badger::Key::NONE;
+      }
+      else {
+        _bindings[i]->secondary = *secondary;
+      }
       return;
     }
   }
