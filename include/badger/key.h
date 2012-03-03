@@ -81,6 +81,12 @@ namespace Badger {
       Y,
       Z,
 
+      MOUSE_0,
+      MOUSE_1,
+      MOUSE_2,
+      MOUSE_3,
+      MOUSE_4,
+
       MAX
     };
   }

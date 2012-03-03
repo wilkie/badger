@@ -22,7 +22,8 @@ Badger::Engine::Engine(VideoSettings* video) {
   binding.key = Badger::Key::UP;
   _inputHandler->registerEvent("Walk up", 3, &binding, NULL);
   binding.key = Badger::Key::DOWN;
-  _inputHandler->registerEvent("Walk down", 4, &binding, NULL);
+  KeyBinding binding2 = {Badger::Key::MOUSE_0};
+  _inputHandler->registerEvent("Walk down", 4, &binding, &binding2);
 }
 
 void Badger::Engine::_draw() {
@@ -123,126 +124,205 @@ bool Badger::Engine::_startSDL() {
 
 #ifndef NO_SDL
 // OMG LONG FUNCTION JEEZ WEEZ CHEEZ WIZ (tm).
-static Badger::Key::Code _translateSDLKey(int symbol) {
-  switch (symbol) {
-    case SDLK_LEFT:
-      return Badger::Key::LEFT;
-    case SDLK_RIGHT:
-      return Badger::Key::RIGHT;
-    case SDLK_UP:
-      return Badger::Key::UP;
-    case SDLK_DOWN:
-      return Badger::Key::DOWN;
-    case SDLK_a:
-      return Badger::Key::A;
-    case SDLK_b:
-      return Badger::Key::B;
-    case SDLK_c:
-      return Badger::Key::C;
-    case SDLK_d:
-      return Badger::Key::D;
-    case SDLK_e:
-      return Badger::Key::E;
-    case SDLK_f:
-      return Badger::Key::F;
-    case SDLK_g:
-      return Badger::Key::G;
-    case SDLK_h:
-      return Badger::Key::H;
-    case SDLK_i:
-      return Badger::Key::I;
-    case SDLK_j:
-      return Badger::Key::J;
-    case SDLK_k:
-      return Badger::Key::K;
-    case SDLK_l:
-      return Badger::Key::L;
-    case SDLK_m:
-      return Badger::Key::M;
-    case SDLK_n:
-      return Badger::Key::N;
-    case SDLK_o:
-      return Badger::Key::O;
-    case SDLK_p:
-      return Badger::Key::P;
-    case SDLK_q:
-      return Badger::Key::Q;
-    case SDLK_r:
-      return Badger::Key::R;
-    case SDLK_s:
-      return Badger::Key::S;
-    case SDLK_t:
-      return Badger::Key::T;
-    case SDLK_u:
-      return Badger::Key::U;
-    case SDLK_v:
-      return Badger::Key::V;
-    case SDLK_w:
-      return Badger::Key::W;
-    case SDLK_x:
-      return Badger::Key::X;
-    case SDLK_y:
-      return Badger::Key::Y;
-    case SDLK_z:
-      return Badger::Key::Z;
-    case SDLK_1:
-      return Badger::Key::NUM1;
-    case SDLK_2:
-      return Badger::Key::NUM2;
-    case SDLK_3:
-      return Badger::Key::NUM3;
-    case SDLK_4:
-      return Badger::Key::NUM4;
-    case SDLK_5:
-      return Badger::Key::NUM5;
-    case SDLK_6:
-      return Badger::Key::NUM6;
-    case SDLK_7:
-      return Badger::Key::NUM7;
-    case SDLK_8:
-      return Badger::Key::NUM8;
-    case SDLK_9:
-      return Badger::Key::NUM9;
-    case SDLK_0:
-      return Badger::Key::NUM0;
-    case SDLK_F1:
-      return Badger::Key::F1;
-    case SDLK_F2:
-      return Badger::Key::F2;
-    case SDLK_F3:
-      return Badger::Key::F3;
-    case SDLK_F4:
-      return Badger::Key::F4;
-    case SDLK_F5:
-      return Badger::Key::F5;
-    case SDLK_F6:
-      return Badger::Key::F6;
-    case SDLK_F7:
-      return Badger::Key::F7;
-    case SDLK_F8:
-      return Badger::Key::F8;
-    case SDLK_F9:
-      return Badger::Key::F9;
-    case SDLK_F10:
-      return Badger::Key::F10;
-    case SDLK_F11:
-      return Badger::Key::F11;
-    case SDLK_F12:
-      return Badger::Key::F12;
+static bool _translateSDLKey(Badger::KeyBinding* binding, SDL_Event* event) {
+  binding->key = Badger::Key::NONE;
+  if (event->type == SDL_KEYDOWN || event->type == SDL_KEYUP) {
+    switch (event->key.keysym.sym) {
+      case SDLK_LEFT:
+        binding->key = Badger::Key::LEFT;
+        break;
+      case SDLK_RIGHT:
+        binding->key = Badger::Key::RIGHT;
+        break;
+      case SDLK_UP:
+        binding->key = Badger::Key::UP;
+        break;
+      case SDLK_DOWN:
+        binding->key = Badger::Key::DOWN;
+        break;
+      case SDLK_a:
+        binding->key = Badger::Key::A;
+        break;
+      case SDLK_b:
+        binding->key = Badger::Key::B;
+        break;
+      case SDLK_c:
+        binding->key = Badger::Key::C;
+        break;
+      case SDLK_d:
+        binding->key = Badger::Key::D;
+        break;
+      case SDLK_e:
+        binding->key = Badger::Key::E;
+        break;
+      case SDLK_f:
+        binding->key = Badger::Key::F;
+        break;
+      case SDLK_g:
+        binding->key = Badger::Key::G;
+        break;
+      case SDLK_h:
+        binding->key = Badger::Key::H;
+        break;
+      case SDLK_i:
+        binding->key = Badger::Key::I;
+        break;
+      case SDLK_j:
+        binding->key = Badger::Key::J;
+        break;
+      case SDLK_k:
+        binding->key = Badger::Key::K;
+        break;
+      case SDLK_l:
+        binding->key = Badger::Key::L;
+        break;
+      case SDLK_m:
+        binding->key = Badger::Key::M;
+        break;
+      case SDLK_n:
+        binding->key = Badger::Key::N;
+        break;
+      case SDLK_o:
+        binding->key = Badger::Key::O;
+        break;
+      case SDLK_p:
+        binding->key = Badger::Key::P;
+        break;
+      case SDLK_q:
+        binding->key = Badger::Key::Q;
+        break;
+      case SDLK_r:
+        binding->key = Badger::Key::R;
+        break;
+      case SDLK_s:
+        binding->key = Badger::Key::S;
+        break;
+      case SDLK_t:
+        binding->key = Badger::Key::T;
+        break;
+      case SDLK_u:
+        binding->key = Badger::Key::U;
+        break;
+      case SDLK_v:
+        binding->key = Badger::Key::V;
+        break;
+      case SDLK_w:
+        binding->key = Badger::Key::W;
+        break;
+      case SDLK_x:
+        binding->key = Badger::Key::X;
+        break;
+      case SDLK_y:
+        binding->key = Badger::Key::Y;
+        break;
+      case SDLK_z:
+        binding->key = Badger::Key::Z;
+        break;
+      case SDLK_1:
+        binding->key = Badger::Key::NUM1;
+        break;
+      case SDLK_2:
+        binding->key = Badger::Key::NUM2;
+        break;
+      case SDLK_3:
+        binding->key = Badger::Key::NUM3;
+        break;
+      case SDLK_4:
+        binding->key = Badger::Key::NUM4;
+        break;
+      case SDLK_5:
+        binding->key = Badger::Key::NUM5;
+        break;
+      case SDLK_6:
+        binding->key = Badger::Key::NUM6;
+        break;
+      case SDLK_7:
+        binding->key = Badger::Key::NUM7;
+        break;
+      case SDLK_8:
+        binding->key = Badger::Key::NUM8;
+        break;
+      case SDLK_9:
+        binding->key = Badger::Key::NUM9;
+        break;
+      case SDLK_0:
+        binding->key = Badger::Key::NUM0;
+        break;
+      case SDLK_F1:
+        binding->key = Badger::Key::F1;
+        break;
+      case SDLK_F2:
+        binding->key = Badger::Key::F2;
+        break;
+      case SDLK_F3:
+        binding->key = Badger::Key::F3;
+        break;
+      case SDLK_F4:
+        binding->key = Badger::Key::F4;
+        break;
+      case SDLK_F5:
+        binding->key = Badger::Key::F5;
+        break;
+      case SDLK_F6:
+        binding->key = Badger::Key::F6;
+        break;
+      case SDLK_F7:
+        binding->key = Badger::Key::F7;
+        break;
+      case SDLK_F8:
+        binding->key = Badger::Key::F8;
+        break;
+      case SDLK_F9:
+        binding->key = Badger::Key::F9;
+        break;
+      case SDLK_F10:
+        binding->key = Badger::Key::F10;
+        break;
+      case SDLK_F11:
+        binding->key = Badger::Key::F11;
+        break;
+      case SDLK_F12:
+        binding->key = Badger::Key::F12;
+        break;
+    }
   }
-  return Badger::Key::NONE;
+  else if (event->type == SDL_MOUSEBUTTONDOWN || event->type == SDL_MOUSEBUTTONUP) {
+    switch (event->button.button) {
+      case 1:
+        binding->key = Badger::Key::MOUSE_0;
+        break;
+      case 2:
+        binding->key = Badger::Key::MOUSE_1;
+        break;
+      case 3:
+        binding->key = Badger::Key::MOUSE_2;
+        break;
+      case 4:
+        binding->key = Badger::Key::MOUSE_3;
+        break;
+      case 5:
+        binding->key = Badger::Key::MOUSE_4;
+        break;
+    }
+  }
+
+  if (event->type == SDL_KEYDOWN || event->type == SDL_MOUSEBUTTONDOWN) {
+    return true;
+  }
+
+  return false;
 }
 #else
 #endif
 
 void Badger::Engine::_fireEvent(void* data) {
   SDL_Event* event = (SDL_Event*)data;
-  if (event->type == SDL_KEYDOWN) {
-    Badger::KeyBinding binding = {Badger::Key::NONE};
-    binding.key = _translateSDLKey(event->key.keysym.sym);
+  Badger::KeyBinding binding = {Badger::Key::NONE};
+  bool pressed = _translateSDLKey(&binding, event);
 
-    int eventType = _inputHandler->yieldEvent(&binding);
+  int eventType = _inputHandler->yieldEvent(&binding);
 
+  if (pressed) {
     switch (eventType) {
       case 1:
         _world->actor(0)->animate("walk_left");
@@ -264,11 +344,7 @@ void Badger::Engine::_fireEvent(void* data) {
         break;
     }
   }
-  else if (event->type == SDL_KEYUP) {
-    Badger::KeyBinding binding = {Badger::Key::NONE};
-    binding.key = Badger::Key::LEFT;
-    int eventType = _inputHandler->yieldEvent(&binding);
-
+  else {
     switch (eventType) {
       case 1:
         break;
