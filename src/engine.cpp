@@ -1,4 +1,5 @@
 #include "badger/engine.h"
+#include "badger/clock.h"
 
 #include "math.h"
 
@@ -29,11 +30,12 @@ void Badger::Engine::inputHandler(Badger::InputHandler* value) {
 
 void Badger::Engine::run() {
   SDL_Event event;
+  Clock* clock = new Clock();
   while(true) {
+    double elapsed = clock->elapsedTime();
     if (!SDL_PollEvent(&event)) {
       _draw();
       SDL_GL_SwapBuffers();
-      SDL_Delay(100);
       _mainViewport->world()->actor(0)->nextFrame();
     }
     else {
