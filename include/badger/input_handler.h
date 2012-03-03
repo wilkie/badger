@@ -42,22 +42,22 @@ namespace Badger {
        */
       void registerEvent(const char* name,
                          int         value,
-                         KeyBinding  primary,
-                         KeyBinding  secondary);
+                         KeyBinding* primary,
+                         KeyBinding* secondary);
 
       /*
        *  Rebinds a key combination to the primary binding of the given event.
        *    The event must have been registered by registerEvent().
        */
       void rebindPrimary(const char* name,
-                         KeyBinding  primary);
+                         KeyBinding* primary);
 
       /*
        *  Rebinds a key combination to the secondary binding of the given
        *    event. The event must have been registered by registerEvent().
        */
       void rebindSecondary(const char* name,
-                           KeyBinding  secondary);
+                           KeyBinding* secondary);
 
       int yieldEvent(KeyBinding* binding);
 
