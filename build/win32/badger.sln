@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "badger", "badger.vcxproj", "{559F58DF-1E22-49BF-A853-45169DFFB2D7}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "actor_tester", "actor_tester.vcxproj", "{64FA499A-20A2-48F6-BF68-31D9E999C6BD}"
+	ProjectSection(ProjectDependencies) = postProject
+		{559F58DF-1E22-49BF-A853-45169DFFB2D7} = {559F58DF-1E22-49BF-A853-45169DFFB2D7}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
