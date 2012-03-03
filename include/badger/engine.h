@@ -44,11 +44,6 @@ namespace Badger {
       void world(World* value);
 
       /*
-       *  Attach the given Badger::InputHandler.
-       */
-      void inputHandler(InputHandler* value);
-
-      /*
        *  Execute the game loop. There is no escape from this function until the game ends.
        */
       void run();

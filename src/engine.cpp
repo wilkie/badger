@@ -36,10 +36,6 @@ void Badger::Engine::world(Badger::World* value) {
   _mainViewport->world(value);
 }
 
-void Badger::Engine::inputHandler(Badger::InputHandler* value) {
-  _inputHandler = value;
-}
-
 void Badger::Engine::run() {
   SDL_Event event;
   Clock* clock = new Clock();
