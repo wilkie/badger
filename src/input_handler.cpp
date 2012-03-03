@@ -11,33 +11,33 @@ Badger::InputHandler::~InputHandler() {
 
 void Badger::InputHandler::registerEvent(const char* name,
                                          int value,
-                                         Badger::KeyBinding primary,
-                                         Badger::KeyBinding secondary) {
+                                         Badger::KeyBinding* primary,
+                                         Badger::KeyBinding* secondary) {
   Binding* binding = new Binding();
 
   binding->name      = name;
   binding->value     = value;
-  binding->primary   = primary;
-  binding->secondary = secondary;
+  binding->primary   = *primary;
+  binding->secondary = *secondary;
 
   _bindings.push_back(binding);
 }
 
 void Badger::InputHandler::rebindPrimary(const char* name,
-                                         KeyBinding primary) {
+                                         KeyBinding* primary) {
   for (unsigned int i = 0; i < _bindings.size(); i++) {
     if (strncmp(_bindings[i]->name, name, 128) == 0) {
-      _bindings[i]->primary = primary;
+      _bindings[i]->primary = *primary;
       return;
     }
   }
 }
 
 void Badger::InputHandler::rebindSecondary(const char* name,
-                                           KeyBinding secondary) {
+                                           KeyBinding* secondary) {
   for (unsigned int i = 0; i < _bindings.size(); i++) {
     if (strncmp(_bindings[i]->name, name, 128) == 0) {
-      _bindings[i]->secondary = secondary;
+      _bindings[i]->secondary = *secondary;
       return;
     }
   }
