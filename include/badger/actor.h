@@ -25,7 +25,6 @@ namespace Badger {
        *    Badger::SpriteSheet.
        */
       Actor(const char* actorFile,
-            SpriteSheet* spriteSheet,
             unsigned int x,
             unsigned int y);
       ~Actor();

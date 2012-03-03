@@ -11,15 +11,12 @@ Badger::Actor::~Actor() {
 }
 
 Badger::Actor::Actor(const char* actorFile,
-                     SpriteSheet* spriteSheet,
                      unsigned int x,
                      unsigned int y) {
   _currentAnimation = NULL;
   _currentFrame = 0;
   _frame = NULL;
   _currentTime = 0;
-
-  _spriteSheet = spriteSheet;
 
   FILE* f = fopen(actorFile, "rt");
 
