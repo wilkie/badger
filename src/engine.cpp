@@ -188,3 +188,7 @@ void Badger::Engine::_fireEvent(void* data) {
     }
   }
 }
+
+Badger::InputHandler* Badger::Engine::inputHandler() {
+  return _inputHandler;
+}

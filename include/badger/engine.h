@@ -44,6 +44,12 @@ namespace Badger {
       void world(World* value);
 
       /*
+       *  Returns: A reference to the InputHandler object that handles mapping
+       *    input from devices to events.
+       */
+      InputHandler* inputHandler();
+
+      /*
        *  Execute the game loop. There is no escape from this function until the game ends.
        */
       void run();
