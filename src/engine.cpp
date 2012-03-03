@@ -97,7 +97,7 @@ bool Badger::Engine::_startSDL() {
 
   SDL_Surface* surf_display;
   if((surf_display = SDL_SetVideoMode(_video.resolutionX, _video.resolutionY, 32, SDL_HWSURFACE | SDL_OPENGL)) == NULL) {
-    fprintf(stderr, "Unable to initialize SDL: SDL_SetVideoMode failed\n");
+    fprintf(stderr, "Unable to initialize SDL: SDL_SetVideoMode failed: %s\n", SDL_GetError());
     return false;
   }
 
