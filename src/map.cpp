@@ -11,6 +11,7 @@ Badger::Map::Map(unsigned int width,
   memset(_tiles, 0, _width*_height*sizeof(Tile));
   for(unsigned int x = 0; x < _width * _height; x++) {
     _tiles[x].spriteIndex = rand() % 16;
+    _tiles[x].passable    = true;
   }
 
   _generateWalls();

@@ -9,15 +9,40 @@ void Badger::Viewport::draw(Renderer* renderer) {
   // draw the map
   Map* map = _world->map();
   renderer->bindTexture(map->spriteSheet()->texture());
+
+  // Render all background tiles
   for (int y = map->height() - 1; y >= 0; y--) {
     for (int x = 0; x < map->width(); x++) {
       Tile* tile = map->tile(x, y);
+      if (!tile->passable) {
+        continue;
+      }
+
       map->spriteSheet()->textureCoordinates(tile->spriteIndex, coords);
 
       Sprite* sprite = map->spriteSheet()->sprite(tile->spriteIndex);
       renderer->drawSquare(x*32.0f, y*32.0f,
                            (float)sprite->width, (float)sprite->height,
-                           coords[0], coords[1], coords[2], coords[3]);
+                           coords[0], coords[1], coords[2], coords[3],
+                           0.0);
+    }
+  }
+
+  // Render all foreground Tiles
+  for (int y = map->height() - 1; y >= 0; y--) {
+    for (int x = 0; x < map->width(); x++) {
+      Tile* tile = map->tile(x, y);
+      if (tile->passable) {
+        continue;
+      }
+
+      map->spriteSheet()->textureCoordinates(tile->spriteIndex, coords);
+
+      Sprite* sprite = map->spriteSheet()->sprite(tile->spriteIndex);
+      renderer->drawSquare(x*32.0f, y*32.0f + ((sprite->height - 32.0) / 2.0),
+                           (float)sprite->width, (float)sprite->height,
+                           coords[0], coords[1], coords[2], coords[3],
+                           (map->height()-y)*32.0f);
     }
   }
 
@@ -31,7 +56,8 @@ void Badger::Viewport::draw(Renderer* renderer) {
     Sprite* sprite = actor->sprite();
     renderer->drawSquare((float)actor->position().x, (float)actor->position().y,
                          (float)sprite->width, (float)sprite->height,
-                         coords[0], coords[1], coords[2], coords[3]);
+                         coords[0], coords[1], coords[2], coords[3],
+                         (map->height()*32.0f)-(float)actor->position().y);
   }
 }
 
