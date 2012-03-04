@@ -7,25 +7,31 @@ namespace Badger {
     Renderer();
     bool initializeViewport(unsigned int width, unsigned int height);
     void setProjection(unsigned int width, unsigned int height, double zoom);
-    void drawSquare(float x, float y, float width, float height, double tu, double tv, double tw, double th, double depth);
-    void drawCube(float x, float y, float z, float width, float height, float depth);
-    void drawArrays(const float vertices[],
-                    const float normals[],
+    void drawSquare(double x, double y,
+                    double width, double height,
+                    double tu, double tv,
+                    double tw, double th,
+                    double depth);
+    void drawCube(double x, double y,
+                  double z, double width,
+                  double height, double depth);
+    void drawArrays(const double vertices[],
+                    const double normals[],
                     const unsigned char indices[],
                     unsigned int num);
-    void drawArrays(const float vertices[],
-                    const float normals[],
+    void drawArrays(const double vertices[],
+                    const double normals[],
                     const unsigned char indices[],
                     const double texture_coords[],
                     unsigned int num);
-    void drawArrays(const float vertices[],
-                    const float normals[],
-                    const float colors[],
+    void drawArrays(const double vertices[],
+                    const double normals[],
+                    const double colors[],
                     const unsigned char indices[],
                     unsigned int num);
-    void drawArrays(const float vertices[],
-                    const float normals[],
-                    const float colors[],
+    void drawArrays(const double vertices[],
+                    const double normals[],
+                    const double colors[],
                     const unsigned char indices[],
                     const double texture_coords[],
                     unsigned int num);

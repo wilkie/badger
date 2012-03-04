@@ -53,16 +53,16 @@ void Badger::Renderer::setProjection(unsigned int width, unsigned int height, do
   glLoadIdentity();
 }
 
-void Badger::Renderer::drawArrays(const float vertices[],
-                                  const float normals[],
+void Badger::Renderer::drawArrays(const double vertices[],
+                                  const double normals[],
                                   const unsigned char indices[],
                                   unsigned int num) {
 
   glEnableClientState(GL_NORMAL_ARRAY);
   glEnableClientState(GL_VERTEX_ARRAY);
 
-  glNormalPointer(GL_FLOAT, 0, normals);
-  glVertexPointer(3, GL_FLOAT, 0, vertices);
+  glNormalPointer(GL_DOUBLE, 0, normals);
+  glVertexPointer(3, GL_DOUBLE, 0, vertices);
 
   glDrawElements(GL_QUADS, num, GL_UNSIGNED_BYTE, indices);
 
@@ -70,9 +70,9 @@ void Badger::Renderer::drawArrays(const float vertices[],
   glDisableClientState(GL_NORMAL_ARRAY);
 }
 
-void Badger::Renderer::drawArrays(const float vertices[],
-                                  const float normals[],
-                                  const float colors[],
+void Badger::Renderer::drawArrays(const double vertices[],
+                                  const double normals[],
+                                  const double colors[],
                                   const unsigned char indices[],
                                   unsigned int num) {
 
@@ -80,9 +80,9 @@ void Badger::Renderer::drawArrays(const float vertices[],
   glEnableClientState(GL_COLOR_ARRAY);
   glEnableClientState(GL_VERTEX_ARRAY);
 
-  glNormalPointer(GL_FLOAT, 0, normals);
-  glColorPointer(3, GL_FLOAT, 0, colors);
-  glVertexPointer(3, GL_FLOAT, 0, vertices);
+  glNormalPointer(GL_DOUBLE, 0, normals);
+  glColorPointer(3, GL_DOUBLE, 0, colors);
+  glVertexPointer(3, GL_DOUBLE, 0, vertices);
 
   glDrawElements(GL_QUADS, num, GL_UNSIGNED_BYTE, indices);
 
@@ -91,8 +91,8 @@ void Badger::Renderer::drawArrays(const float vertices[],
   glDisableClientState(GL_NORMAL_ARRAY);
 }
 
-void Badger::Renderer::drawArrays(const float vertices[],
-                                  const float normals[],
+void Badger::Renderer::drawArrays(const double vertices[],
+                                  const double normals[],
                                   const unsigned char indices[],
                                   const double texture_coords[],
                                   unsigned int num) {
@@ -101,8 +101,8 @@ void Badger::Renderer::drawArrays(const float vertices[],
   glEnableClientState(GL_VERTEX_ARRAY);
   glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 
-  glNormalPointer(GL_FLOAT, 0, normals);
-  glVertexPointer(3, GL_FLOAT, 0, vertices);
+  glNormalPointer(GL_DOUBLE, 0, normals);
+  glVertexPointer(3, GL_DOUBLE, 0, vertices);
   glTexCoordPointer(2, GL_DOUBLE, 0, texture_coords);
 
   glDrawElements(GL_QUADS, num, GL_UNSIGNED_BYTE, indices);
@@ -112,9 +112,9 @@ void Badger::Renderer::drawArrays(const float vertices[],
   glDisableClientState(GL_NORMAL_ARRAY);
 }
 
-void Badger::Renderer::drawArrays(const float vertices[],
-                                  const float normals[],
-                                  const float colors[],
+void Badger::Renderer::drawArrays(const double vertices[],
+                                  const double normals[],
+                                  const double colors[],
                                   const unsigned char indices[],
                                   const double texture_coords[],
                                   unsigned int num) {
@@ -124,9 +124,9 @@ void Badger::Renderer::drawArrays(const float vertices[],
   glEnableClientState(GL_VERTEX_ARRAY);
   glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 
-  glNormalPointer(GL_FLOAT, 0, normals);
-  glColorPointer(3, GL_FLOAT, 0, colors);
-  glVertexPointer(3, GL_FLOAT, 0, vertices);
+  glNormalPointer(GL_DOUBLE, 0, normals);
+  glColorPointer(3, GL_DOUBLE, 0, colors);
+  glVertexPointer(3, GL_DOUBLE, 0, vertices);
   glTexCoordPointer(2, GL_DOUBLE, 0, texture_coords);
 
   glDrawElements(GL_QUADS, num, GL_UNSIGNED_BYTE, indices);
@@ -137,11 +137,11 @@ void Badger::Renderer::drawArrays(const float vertices[],
   glDisableClientState(GL_NORMAL_ARRAY);
 }
 
-void Badger::Renderer::drawSquare(float x,     float y,
-                                  float width, float height,
-                                  double tu,   double tv,
-                                  double tw,   double th,
-                                  double depth = 0.0) {
+void Badger::Renderer::drawSquare(double x,     double y,
+                                  double width, double height,
+                                  double tu,    double tv,
+                                  double tw,    double th,
+                                  double depth) {
   // square ////////////////////////////////////////////////////////////////////
   //  v1------v0
   //  |       |
@@ -150,11 +150,11 @@ void Badger::Renderer::drawSquare(float x,     float y,
   //  v2------v3
 
   // vertex coords array
-  static const float vertices[] = {
+  static const double vertices[] = {
     1, 1, 0, -1, 1, 0, -1, -1, 0, 1, -1, 0}; // v0-v1-v2-v3
 
   // normal array
-  static const float normals[] = {
+  static const double normals[] = {
     0, 0, 1,  0, 0, 1,  0,  0, 1, 0,  0, 1}; // v0-v1-v2-v3
 
   double texture_coords[] = {
@@ -164,20 +164,20 @@ void Badger::Renderer::drawSquare(float x,     float y,
 
   glCullFace(GL_BACK);
 
-  float half_width = width / 2.0f;
-  float half_height = height / 2.0f;
+  double half_width = width / 2.0;
+  double half_height = height / 2.0;
 
   glPushMatrix();
-  glTranslatef(x, y, depth);
-  glScalef(half_width, half_height, 1);
+  glTranslated(x, y, depth);
+  glScaled(half_width, half_height, 1);
 
   drawArrays(vertices, normals, indices, texture_coords, 4);
 
   glPopMatrix();
 }
 
-void Badger::Renderer::drawCube(float x,     float y,      float z,
-                                float width, float height, float depth) {
+void Badger::Renderer::drawCube(double x,     double y,      double z,
+                                double width, double height, double depth) {
   // cube //////////////////////////////////////////////////////////////////////
   //    v6----- v5
   //   /|      /|
@@ -188,7 +188,7 @@ void Badger::Renderer::drawCube(float x,     float y,      float z,
   //  v2------v3
 
   // vertex coords array
-  static const float vertices[] = {
+  static const double vertices[] = {
      1,  1,  1, -1,  1,  1, -1, -1,  1,  1, -1,  1,   // v0-v1-v2-v3
      1,  1,  1,  1, -1,  1,  1, -1, -1,  1,  1, -1,   // v0-v3-v4-v5
      1,  1,  1,  1,  1, -1, -1,  1, -1, -1,  1,  1,   // v0-v5-v6-v1
@@ -197,7 +197,7 @@ void Badger::Renderer::drawCube(float x,     float y,      float z,
      1, -1, -1, -1, -1, -1, -1,  1, -1,  1,  1, -1};  // v4-v7-v6-v5
 
   // normal array
-  static const float normals[] = {
+  static const double normals[] = {
      0,  0,  1,  0,  0,  1,  0,  0,  1,  0,  0,  1,   // v0-v1-v2-v3
      1,  0,  0,  1,  0,  0,  1,  0,  0,  1,  0,  0,   // v0-v3-v4-v5
      0,  1,  0,  0,  1,  0,  0,  1,  0,  0,  1,  0,   // v0-v5-v6-v1
@@ -206,13 +206,13 @@ void Badger::Renderer::drawCube(float x,     float y,      float z,
      0,  0, -1,  0,  0, -1,  0,  0, -1,  0,  0, -1};  // v4-v7-v6-v5
 
   // color array
-  static const float colors[] = {
-    0.7f, 0.5f, 0, 0.7f, 0.5f, 0, 0.52f, 0.4f, 0, 0.7f, 0.4f, 0, // v0-v1-v2-v3
-    0.7f, 0.5f, 0, 0.7f, 0.5f, 0, 0.52f, 0.4f, 0, 0.7f, 0.4f, 0, // v0-v3-v4-v5
-       1,    1, 1,    0,    1, 1,     0,    1, 0,    1,    1, 0, // v0-v5-v6-v1
-    0.7f, 0.5f, 0, 0.7f, 0.5f, 0, 0.52f, 0.4f, 0, 0.7f, 0.4f, 0, // v1-v6-v7-v2
-       0,    0, 0,    0,    0, 1,     1,    0, 1,    1,    0, 0, // v7-v4-v3-v2
-    0.7f, 0.5f, 0, 0.7f, 0.5f, 0, 0.52f, 0.4f, 0, 0.7f, 0.4f, 0};// v4-v7-v6-v5
+  static const double colors[] = {
+    0.7, 0.5, 0, 0.7, 0.5, 0, 0.52, 0.4, 0, 0.7, 0.4, 0, // v0-v1-v2-v3
+    0.7, 0.5, 0, 0.7, 0.5, 0, 0.52, 0.4, 0, 0.7, 0.4, 0, // v0-v3-v4-v5
+      1,   1, 1,   0,   1, 1,    0,   1, 0,   1,   1, 0, // v0-v5-v6-v1
+    0.7, 0.5, 0, 0.7, 0.5, 0, 0.52, 0.4, 0, 0.7, 0.4, 0, // v1-v6-v7-v2
+      0,   0, 0,   0,   0, 1,    1,   0, 1,   1,   0, 0, // v7-v4-v3-v2
+    0.7, 0.5, 0, 0.7, 0.5, 0, 0.52, 0.4, 0, 0.7, 0.4, 0};// v4-v7-v6-v5
 
   static const unsigned char indices[] = {
      0,  1,  2,  3,
@@ -224,13 +224,13 @@ void Badger::Renderer::drawCube(float x,     float y,      float z,
 
   glCullFace(GL_BACK);
 
-  float half_width = width / 2.0f;
-  float half_height = height / 2.0f;
-  float half_depth = depth / 2.0f;
+  double half_width = width / 2.0;
+  double half_height = height / 2.0;
+  double half_depth = depth / 2.0;
 
   glPushMatrix();
-  glTranslatef(x, y, z);
-  glScalef(half_width, half_height, half_depth);
+  glTranslated(x, y, z);
+  glScaled(half_width, half_height, half_depth);
 
   drawArrays(vertices, normals, colors, indices, 24);
 
