@@ -14,15 +14,19 @@ Badger::Engine::Engine(VideoSettings* video) {
 
   // Adding some events just because
   KeyBinding binding = {Badger::Key::NONE};
+  KeyBinding binding2 = {Badger::Key::NONE};
 
   binding.key = Badger::Key::LEFT;
-  _inputHandler->registerEvent("Walk left", 1, &binding, NULL);
+  binding2.key = Badger::Key::JOY_POV_LEFT;
+  _inputHandler->registerEvent("Walk left", 1, &binding, &binding2);
   binding.key = Badger::Key::RIGHT;
-  _inputHandler->registerEvent("Walk right", 2, &binding, NULL);
+  binding2.key = Badger::Key::JOY_POV_RIGHT;
+  _inputHandler->registerEvent("Walk right", 2, &binding, &binding2);
   binding.key = Badger::Key::UP;
-  _inputHandler->registerEvent("Walk up", 3, &binding, NULL);
+  binding2.key = Badger::Key::JOY_POV_UP;
+  _inputHandler->registerEvent("Walk up", 3, &binding, &binding2);
   binding.key = Badger::Key::DOWN;
-  KeyBinding binding2 = {Badger::Key::MOUSE_0};
+  binding2.key = Badger::Key::JOY_POV_DOWN;
   _inputHandler->registerEvent("Walk down", 4, &binding, &binding2);
 }
 
@@ -61,6 +65,9 @@ void Badger::Engine::run() {
     SDL_GL_SwapBuffers();
   }
 
+  // Uninitialize the joystick
+  //joystick = SDL_JoystickOpen(0);
+
   // Destruct SDL
   SDL_Quit();
 }
@@ -86,10 +93,16 @@ bool Badger::Engine::_startSDL() {
   return false;
 #else
   // initialize SDL
-  if (SDL_Init(SDL_INIT_VIDEO) < 0) {
+  if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_JOYSTICK) < 0) {
     fprintf(stderr, "Unable to initialize SDL: %s\n", SDL_GetError());
     return false;
   }
+
+  // Initialize joystick by querying for the first joystick attached.
+  SDL_Joystick *joystick;
+
+  SDL_JoystickEventState(SDL_ENABLE);
+  joystick = SDL_JoystickOpen(0);
 
   SDL_GL_SetAttribute(SDL_GL_RED_SIZE,            8);
   SDL_GL_SetAttribute(SDL_GL_GREEN_SIZE,          8);
@@ -287,26 +300,59 @@ static bool _translateSDLKey(Badger::KeyBinding* binding, SDL_Event* event) {
     }
   }
   else if (event->type == SDL_MOUSEBUTTONDOWN || event->type == SDL_MOUSEBUTTONUP) {
-    switch (event->button.button) {
-      case 1:
-        binding->key = Badger::Key::MOUSE_0;
-        break;
-      case 2:
-        binding->key = Badger::Key::MOUSE_1;
-        break;
-      case 3:
-        binding->key = Badger::Key::MOUSE_2;
-        break;
-      case 4:
-        binding->key = Badger::Key::MOUSE_3;
-        break;
-      case 5:
-        binding->key = Badger::Key::MOUSE_4;
-        break;
+    binding->key = (Badger::Key::Code)(Badger::Key::MOUSE_0 + event->button.button - 1);
+  }
+  else if (event->type == SDL_JOYBUTTONDOWN) {
+    binding->key = (Badger::Key::Code)(Badger::Key::JOY_0 + event->jbutton.button);
+  }
+  else if (event->type == SDL_JOYAXISMOTION) {
+    if (event->jaxis.axis == 0) {
+      // Left-Right
+      if (event->jaxis.value < 0) {
+        binding->key = Badger::Key::JOY_LEFT;
+      }
+      else {
+        binding->key = Badger::Key::JOY_RIGHT;
+      }
     }
+    else if (event->jaxis.axis == 1) {
+      // Up-Down
+      if (event->jaxis.value < 0) {
+        binding->key = Badger::Key::JOY_UP;
+      }
+      else {
+        binding->key = Badger::Key::JOY_DOWN;
+      }
+    }
+
+    // TODO: Further axes ... 
+    return true;
+  }
+  else if (event->type == SDL_JOYHATMOTION) {
+    // Hats are a bitmask that has a base of:
+    int mask = Badger::Key::JOY_POV_UP - 1;
+
+    if (event->jhat.value & SDL_HAT_UP) {
+      mask |= 0x1;
+    }
+    if (event->jhat.value & SDL_HAT_DOWN) {
+      mask |= 0x2;
+    }
+    if (event->jhat.value & SDL_HAT_LEFT) {
+      mask |= 0x4;
+    }
+    if (event->jhat.value & SDL_HAT_RIGHT) {
+      mask |= 0x8;
+    }
+
+    binding->key = (Badger::Key::Code)mask;
+    return (mask && 0xf);
   }
 
-  if (event->type == SDL_KEYDOWN || event->type == SDL_MOUSEBUTTONDOWN) {
+  if (event->type == SDL_KEYDOWN ||
+      event->type == SDL_MOUSEBUTTONDOWN ||
+      event->type == SDL_JOYBUTTONDOWN) {
+
     return true;
   }
 

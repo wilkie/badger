@@ -87,6 +87,41 @@ namespace Badger {
       MOUSE_3,
       MOUSE_4,
 
+      JOY_0,
+      JOY_1,
+      JOY_2,
+      JOY_3,
+      JOY_4,
+      JOY_5,
+      JOY_6,
+      JOY_7,
+      JOY_8,
+      JOY_9,
+      JOY_10,
+      JOY_11,
+      JOY_12,
+      JOY_13,
+      JOY_14,
+      JOY_15,
+      JOY_16,
+      JOY_17,
+      JOY_18,
+      JOY_19,
+
+      JOY_UP,
+      JOY_DOWN,
+      JOY_LEFT,
+      JOY_RIGHT,
+
+      JOY_POV_UP         = 0x1001, // 0001
+      JOY_POV_DOWN       = 0x1002, // 0010
+      JOY_POV_LEFT       = 0x1004, // 0100
+      JOY_POV_RIGHT      = 0x1008, // 1000
+      JOY_POV_UP_LEFT    = 0x1005, // 0101
+      JOY_POV_UP_RIGHT   = 0x1009, // 1001
+      JOY_POV_DOWN_LEFT  = 0x1006, // 0110
+      JOY_POV_DOWN_RIGHT = 0x100A, // 1010
+
       MAX
     };
   }
