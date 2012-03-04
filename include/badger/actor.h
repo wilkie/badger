@@ -66,10 +66,13 @@ namespace Badger {
        */
       void update(double elapsed);
 
-    private:
+      // Set the current state for the Actor.
+      void setCurrentState(const char* stateName);
 
-      // Creates a new animation structure
-      Animation* _newAnimation(const char* name);
+      // Return the current state for the Actor.
+      const char* currentState();
+
+    private:
 
       // The set of sprites for the Actor.
       SpriteSheet* _spriteSheet;
@@ -77,18 +80,34 @@ namespace Badger {
       // The current position of the Actor in the world.
       Position _position;
 
+      // Stores the current movement rate of the Actor.
+      double _moveRate;
+
+      // Stores all possible states for the Actor.
+      std::vector<char*> _states;
+
+      // Stores the current state of the character. State
+      // determines how the character updates.
+      const char* _currentState;
+
       // Stores the details about animations.
       std::vector<Animation*> _animations;
 
-      // Stores the current animation
+      // Stores the current animation.
       Animation* _currentAnimation;
 
-      // Stores the current frame
+      // Stores the current frame.
       unsigned int _currentFrame;
       AnimationFrame* _frame;
 
-      // time since last frame
+      // time since last frame.
       double _currentTime;
+
+      // Creates a new animation structure.
+      Animation* _newAnimation(const char* name);
+
+      // Creates a new state.
+      char* _newState(const char* name);
   };
 }
 

@@ -326,18 +326,22 @@ void Badger::Engine::_fireEvent(void* data) {
     switch (eventType) {
       case 1:
         _world->actor(0)->animate("walk_left");
+        _world->actor(0)->setCurrentState("walk_left");
         break;
 
       case 2:
-        _world->actor(0)->animate("walk_rght");
+        _world->actor(0)->animate("walk_right");
+        _world->actor(0)->setCurrentState("walk_right");
         break;
 
       case 3:
         _world->actor(0)->animate("walk_up");
+        _world->actor(0)->setCurrentState("walk_up");
         break;
 
       case 4:
         _world->actor(0)->animate("walk_down");
+        _world->actor(0)->setCurrentState("walk_down");
         break;
 
       default:
@@ -347,15 +351,23 @@ void Badger::Engine::_fireEvent(void* data) {
   else {
     switch (eventType) {
       case 1:
+        _world->actor(0)->animate("stand_left");
+        _world->actor(0)->setCurrentState("stand");
         break;
 
       case 2:
+        _world->actor(0)->animate("stand_right");
+        _world->actor(0)->setCurrentState("stand");
         break;
 
       case 3:
+        _world->actor(0)->animate("stand_up");
+        _world->actor(0)->setCurrentState("stand");
         break;
 
       case 4:
+        _world->actor(0)->animate("stand_down");
+        _world->actor(0)->setCurrentState("stand");
         break;
 
       default:

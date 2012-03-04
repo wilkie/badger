@@ -153,6 +153,11 @@ int Badger::SpriteSheet::enumerateSprites(const char* wildcard, unsigned int las
   }
 
   if (star_pos == -1) {
+    // if we've already found the sprite, don't infinite loop
+    if (last > 0) {
+      return -1;
+    }
+
     // No star is found... just find by the name
     for (unsigned int i = 0; i < _sprites.size(); i++) {
       if (strncmp(wildcard, _sprites[i]->name, 64) == 0) {

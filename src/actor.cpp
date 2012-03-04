@@ -35,8 +35,17 @@ Badger::Actor::Actor(const char* actorFile,
     else if (strcmp(key, "height") == 0) {
       _position.height = atoi(val);
     }
+    else if (strcmp(key, "move_rate") == 0) {
+      _moveRate = atoi(val);
+    }
     else if (strcmp(key, "sprites") == 0) {
       _spriteSheet = new SpriteSheet(val);
+    }
+    else if (strcmp(key, "state") == 0) {
+      _newState(val);
+    }
+    else if (strcmp(key, "default_state") == 0) {
+      setCurrentState(val);
     }
     else {
       // Animation
@@ -64,6 +73,25 @@ Badger::Animation* Badger::Actor::_newAnimation(const char* name) {
   strncpy(ret->name, name, 128);
   _animations.push_back(ret);
   return ret;
+}
+
+char* Badger::Actor::_newState(const char* name) {
+  char* ret = new char[129];
+  strncpy(ret, name, 128);
+  _states.push_back(ret);
+  return ret;
+}
+
+void Badger::Actor::setCurrentState(const char* stateName) {
+  for (unsigned int i = 0; i < _states.size(); i++) {
+    if (strncmp(_states[i], stateName, 128) == 0) {
+      _currentState = _states[i];
+    }
+  }
+}
+
+const char* Badger::Actor::currentState() {
+  return _currentState;
 }
 
 Badger::SpriteSheet* Badger::Actor::spriteSheet() {
@@ -114,4 +142,19 @@ void Badger::Actor::update(double elapsed) {
   if (_currentTime > 0.08) {
     nextFrame();
   }
+
+  // update actor information based on the state
+  if (strcmp(_currentState, "walk_up") == 0) {
+    _position.y += _moveRate * elapsed;
+  }
+  else if (strcmp(_currentState, "walk_down") == 0) {
+    _position.y -= _moveRate * elapsed;
+  }
+  else if (strcmp(_currentState, "walk_left") == 0) {
+    _position.x -= _moveRate * elapsed;
+  }
+  else if (strcmp(_currentState, "walk_right") == 0) {
+    _position.x += _moveRate * elapsed;
+  }
+
 }
