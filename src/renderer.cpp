@@ -33,6 +33,7 @@ bool Badger::Renderer::initializeViewport(unsigned int width, unsigned int heigh
 
   glViewport(0, 0, width, height);
 
+  glEnable(GL_DEPTH_TEST);
   glEnable(GL_TEXTURE_2D);
   glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
   glEnable(GL_BLEND);
@@ -45,7 +46,7 @@ void Badger::Renderer::setProjection(unsigned int width, unsigned int height, do
   glMatrixMode(GL_PROJECTION);
   glLoadIdentity();
 
-  glOrtho(0, width, 0, height, -100, 100);
+  glOrtho(0, width, 0, height, -10000, 10000);
   glScaled(zoom, zoom, zoom);
 
   glMatrixMode(GL_MODELVIEW);
@@ -139,7 +140,8 @@ void Badger::Renderer::drawArrays(const float vertices[],
 void Badger::Renderer::drawSquare(float x,     float y,
                                   float width, float height,
                                   double tu,   double tv,
-                                  double tw,   double th) {
+                                  double tw,   double th,
+                                  double depth = 0.0) {
   // square ////////////////////////////////////////////////////////////////////
   //  v1------v0
   //  |       |
@@ -166,8 +168,8 @@ void Badger::Renderer::drawSquare(float x,     float y,
   float half_height = height / 2.0f;
 
   glPushMatrix();
-  glTranslatef(x, y, 0);
-  glScalef(half_width, half_height, 1.0);
+  glTranslatef(x, y, depth);
+  glScalef(half_width, half_height, 1);
 
   drawArrays(vertices, normals, indices, texture_coords, 4);
 
