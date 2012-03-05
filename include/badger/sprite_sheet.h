@@ -31,6 +31,16 @@ namespace Badger {
     unsigned int height;
 
     /*
+     *  The x coordinate of the origin point of the sprite.
+     */
+    unsigned int center_x;
+
+    /*
+     *  The y coordinate of the origin point of the sprite.
+     */
+    unsigned int center_y;
+
+    /*
      *  The name of the sprite. Maximum 64 characters.
      */
     char name[65];

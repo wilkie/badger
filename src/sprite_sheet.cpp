@@ -90,11 +90,13 @@ void Badger::SpriteSheet::_loadStatSheet(const char* filename) {
   while(!feof(f)) {
     Sprite* sprite = new Sprite;
     _sprites.push_back(sprite);
-    fscanf(f, "%64s %d, %d, %d, %d\n", sprite->name,
+    fscanf(f, "%64s %d, %d, %d, %d, %d, %d\n", sprite->name,
                                     &sprite->x,
                                     &sprite->y,
                                     &sprite->width,
-                                    &sprite->height);
+                                    &sprite->height,
+                                    &sprite->center_x,
+                                    &sprite->center_y);
   }
 
   delete [] stat_sheet;
