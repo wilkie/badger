@@ -2,6 +2,7 @@
 
 Badger::World::World(Map* map) {
   _map        = map;
+  _collider   = new ColliderAgent(map);
 }
 
 Badger::Map* Badger::World::map() {
@@ -23,6 +24,6 @@ Badger::Actor* Badger::World::actor(unsigned int index) {
 
 void Badger::World::update(double elapsed) {
   for (unsigned int i = 0; i < _actors.size(); i++) {
-    _actors[i]->update(elapsed);
+    _actors[i]->update(elapsed, _collider);
   }
 }

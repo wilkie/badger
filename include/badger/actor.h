@@ -2,7 +2,9 @@
 #define BADGER_ACTOR_H
 
 #include <badger/sprite_sheet.h>
-#include <badger/position.h>
+#include <badger/collider_agent.h>
+#include <badger/rectangle.h>
+
 #include <vector>
 
 namespace Badger {
@@ -35,9 +37,9 @@ namespace Badger {
       SpriteSheet* spriteSheet();
 
       /*
-       *  Return: the Badger::Position for the Badger::Actor.
+       *  Return: the Badger::Rectangle for the Badger::Actor.
        */
-      Position position();
+      Rectangle position();
 
       /*
        *  Sets the current animation to be played by this Badger::Actor.
@@ -64,7 +66,7 @@ namespace Badger {
       /*
        *  Updates the current time for the Actor. Affects animations and movements.
        */
-      void update(double elapsed);
+      void update(double elapsed, ColliderAgent* collider);
 
       // Set the current state for the Actor.
       void setCurrentState(const char* stateName);
@@ -78,7 +80,7 @@ namespace Badger {
       SpriteSheet* _spriteSheet;
 
       // The current position of the Actor in the world.
-      Position _position;
+      Rectangle _position;
 
       // Stores the current movement rate of the Actor.
       double _moveRate;

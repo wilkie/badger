@@ -13,7 +13,7 @@ int main(int argc, char** argv) {
   Badger::Map* map = new Badger::Map(100, 100, sheet);
   Badger::World* world = new Badger::World(map);
 
-  Badger::Actor* player1 = new Badger::Actor("assets/actors/herr_von_speck.actor", 40, 50);
+  Badger::Actor* player1 = new Badger::Actor("assets/actors/herr_von_speck.actor", 250, 175);
   player1->animate("walk_left");
   world->addActor(player1);
   engine->world(world);

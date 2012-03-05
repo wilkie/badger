@@ -13,9 +13,11 @@
   <ItemGroup>
     <ClCompile Include="..\..\src\actor.cpp" />
     <ClCompile Include="..\..\src\clock.cpp" />
+    <ClCompile Include="..\..\src\collider_agent.cpp" />
     <ClCompile Include="..\..\src\engine.cpp" />
     <ClCompile Include="..\..\src\input_handler.cpp" />
     <ClCompile Include="..\..\src\map.cpp" />
+    <ClCompile Include="..\..\src\rectangle.cpp" />
     <ClCompile Include="..\..\src\renderer.cpp" />
     <ClCompile Include="..\..\src\sprite_sheet.cpp" />
     <ClCompile Include="..\..\src\test.cpp" />

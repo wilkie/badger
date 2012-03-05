@@ -98,7 +98,7 @@ Badger::SpriteSheet* Badger::Actor::spriteSheet() {
   return _spriteSheet;
 }
 
-Badger::Position Badger::Actor::position() {
+Badger::Rectangle Badger::Actor::position() {
   return _position;
 }
 
@@ -137,24 +137,36 @@ Badger::Sprite* Badger::Actor::sprite() {
   return _frame->sprite;
 }
 
-void Badger::Actor::update(double elapsed) {
+void Badger::Actor::update(double elapsed, ColliderAgent* collider) {
   _currentTime += elapsed;
   if (_currentTime > 0.08) {
     nextFrame();
   }
 
+  Point to;
+  to.x = _position.x;
+  to.y = _position.y;
+
   // update actor information based on the state
   if (strcmp(_currentState, "walk_up") == 0) {
-    _position.y += _moveRate * elapsed;
+    to.y += _moveRate * elapsed;
   }
   else if (strcmp(_currentState, "walk_down") == 0) {
-    _position.y -= _moveRate * elapsed;
+    to.y -= _moveRate * elapsed;
   }
   else if (strcmp(_currentState, "walk_left") == 0) {
-    _position.x -= _moveRate * elapsed;
+    to.x -= _moveRate * elapsed;
   }
   else if (strcmp(_currentState, "walk_right") == 0) {
-    _position.x += _moveRate * elapsed;
+    to.x += _moveRate * elapsed;
   }
+  else {
+    return;
+  }
+
+  collider->move(&_position, &to);
+
+  _position.x = to.x;
+  _position.y = to.y;
 
 }

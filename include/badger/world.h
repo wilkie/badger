@@ -3,6 +3,7 @@
 
 #include <badger/map.h>
 #include <badger/actor.h>
+#include <badger/collider_agent.h>
 
 #include <vector>
 
@@ -43,6 +44,9 @@ namespace Badger {
     private:
       // The world map
       Map* _map;
+
+      // Collider Agent
+      ColliderAgent* _collider;
 
       // Contains the actors that are fighting for justice
       std::vector<Actor*> _actors;
