@@ -54,7 +54,11 @@ void Badger::Viewport::draw(Renderer* renderer) {
     // Get texture coordinates for actor
     actor->textureCoordinates(coords);
     Sprite* sprite = actor->sprite();
-    renderer->drawSquare(actor->position().x, actor->position().y,
+    double x = actor->position().x;
+    double y = actor->position().y;
+    y += ((double)sprite->center_y - ((double)sprite->width/2.0));
+    x -= ((double)sprite->center_x - ((double)sprite->height/2.0));
+    renderer->drawSquare(x, y,
                          sprite->width, sprite->height,
                          coords[0], coords[1], coords[2], coords[3],
                          -actor->position().y);
