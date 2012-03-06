@@ -25,10 +25,13 @@ bool Badger::Rectangle::intersects(Line* line, double* t) {
   // If these are within the range [0..1], then the line intersects the axis of
   //   the rectangle.
   double tMin = -1.0;
+  Point  pMin;
   double tMax = 2.0;
+  Point  pMax;
 
   double p[4];
   double q[4];
+  double exactPosition[4];
 
   double halfWidth  = width / 2.0;
   double halfHeight = height / 2.0;
@@ -41,18 +44,39 @@ bool Badger::Rectangle::intersects(Line* line, double* t) {
   // Left
   p[0] = -boundingBox.width;
   q[0] = line->points[0].x - left;
+  exactPosition[0] = left;
 
   // Right
   p[1] = boundingBox.width;
   q[1] = right - line->points[0].x;
+  exactPosition[1] = right;
 
   // Top
   p[2] = -boundingBox.height;
   q[2] = line->points[0].y - top;
+  exactPosition[2] = top;
 
   // Bottom
   p[3] = boundingBox.height;
   q[3] = bottom - line->points[0].y;
+  exactPosition[3] = bottom;
+
+  // Special cases (Dare I call them edge cases?)
+  // Gliding past the edge
+  if (p[0] == 0 && p[1] == 0) {
+    if (line->points[0].x == left || line->points[0].x == right) {
+      return false;
+    }
+  }
+  else if (p[2] == 0 && p[3] == 0) {
+    if (line->points[0].y == top || line->points[0].y == bottom) {
+      return false;
+    }
+  }
+
+  // Unix Vector Magnitudes
+  double magnitudeX = line->points[0].x - line->points[1].x;
+  double magnitudeY = line->points[0].y - line->points[1].y;
 
   for (int i = 0; i < 4; i++) {
     if (q[i] < 0.0) {
@@ -61,14 +85,30 @@ bool Badger::Rectangle::intersects(Line* line, double* t) {
     }
     else if (p[i] < 0.0) {
       // Outside to Inside
-      if ((q[i] / p[i]) > tMin) {
+      if ((q[i] / p[i]) > tMin && (q[i] / p[i]) > 0.0) {
         tMin = q[i] / p[i];
+        if (i < 2) {
+          pMin.x = exactPosition[i];
+          pMin.y = line->points[0].y + tMin * magnitudeY;
+        }
+        else {
+          pMin.y = exactPosition[i];
+          pMin.x = line->points[0].x + tMin * magnitudeX;
+        }
       }
     }
     else if (p[i] > 0.0) {
       // Inside to Outside
-      if ((q[i] / p[i]) < tMax) {
+      if ((q[i] / p[i]) < tMax && (q[i] / p[i]) < 1.0) {
         tMax = q[i] / p[i];
+        if (i < 2) {
+          pMax.x = exactPosition[i];
+          pMax.y = line->points[0].y + tMax * magnitudeY;
+        }
+        else {
+          pMax.y = exactPosition[i];
+          pMax.x = line->points[0].x + tMax * magnitudeX;
+        }
       }
     }
     else {
@@ -85,9 +125,11 @@ bool Badger::Rectangle::intersects(Line* line, double* t) {
 
   if (tMin >= 0.0) {
     *t = tMin;
+    line->points[1] = pMin;
   }
   else if (tMax <= 1.0) {
     *t = tMax;
+    line->points[1] = pMax;
   }
   else {
     return false;
