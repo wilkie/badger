@@ -1,6 +1,7 @@
 #include "badger/collider_agent.h"
 
 #include "badger/point.h"
+#include <math.h>
 
 Badger::ColliderAgent::ColliderAgent(Map* map)
   : _map(map) {
@@ -11,8 +12,8 @@ bool Badger::ColliderAgent::move(Rectangle* from, Point* to) {
   Point points[4];
   Point toPoints[4];
 
-  double halfWidth  = from->width  / 2.0;
-  double halfHeight = from->height / 2.0;
+  double halfWidth  = ceil(from->width  / 2.0);
+  double halfHeight = ceil(from->height / 2.0);
 
   points[0].x = from->x - halfWidth;
   points[0].y = from->y - halfHeight;
@@ -46,6 +47,8 @@ bool Badger::ColliderAgent::move(Rectangle* from, Point* to) {
   double magnitudeX = from->x - to->x;
   double magnitudeY = from->y - to->y;
 
+  Point calculatedPoint;
+
   // determine if there is an intersection with the map
   for (unsigned int x = 0; x < _map->width(); x++) {
     for (unsigned int y = 0; y < _map->height(); y++) {
@@ -64,14 +67,31 @@ bool Badger::ColliderAgent::move(Rectangle* from, Point* to) {
 
       for (int i = 0; i < 4; i++) {
         double tmp_t;
-
         if (tileRect.intersects(&vectors[i], &tmp_t)) {
           if (tmp_t < t) {
             // New t value is the amount we will walk down the vector
 
             // We subtract a little so that we always have some padding between us
             //   and the wall
-            t = tmp_t - 0.001;
+            t = tmp_t;
+
+            calculatedPoint = vectors[i].points[1];
+            if (i == 0) {
+              calculatedPoint.x += halfWidth;
+              calculatedPoint.y += halfHeight;
+            }
+            else if (i == 1) {
+              calculatedPoint.x -= halfWidth;
+              calculatedPoint.y += halfHeight;
+            }
+            else if (i == 2) {
+              calculatedPoint.x -= halfWidth;
+              calculatedPoint.y -= halfHeight;
+            }
+            else if (i == 3) {
+              calculatedPoint.x += halfWidth;
+              calculatedPoint.y -= halfHeight;
+            }
           }
         }
       }
@@ -85,5 +105,6 @@ bool Badger::ColliderAgent::move(Rectangle* from, Point* to) {
   // Get the actual point we should move to
   to->x = from->x + magnitudeX * t;
   to->y = from->y + magnitudeY * t;
+  *to = calculatedPoint;
   return false;
 }
