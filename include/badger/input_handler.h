@@ -59,11 +59,16 @@ namespace Badger {
       void rebindSecondary(const char* name,
                            KeyBinding* secondary);
 
-      int yieldEvent(KeyBinding* binding);
+      int yieldEvent(bool pressed, KeyBinding* binding);
+
+      bool isEventHeld(int event);
 
     private:
       // Stores all of the bindings
       std::vector<Binding*> _bindings;
+
+      // Stores held events
+      std::vector<int> _held;
   };
 
 }

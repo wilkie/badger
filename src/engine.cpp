@@ -57,7 +57,7 @@ void Badger::Engine::run() {
 
     // Update the world
     _world->update(elapsed);
-    
+
     // Draw the world
     _draw();
 
@@ -325,7 +325,7 @@ static bool _translateSDLKey(Badger::KeyBinding* binding, SDL_Event* event) {
       }
     }
 
-    // TODO: Further axes ... 
+    // TODO: Further axes ...
     return true;
   }
   else if (event->type == SDL_JOYHATMOTION) {
@@ -366,7 +366,7 @@ void Badger::Engine::_fireEvent(void* data) {
   Badger::KeyBinding binding = {Badger::Key::NONE};
   bool pressed = _translateSDLKey(&binding, event);
 
-  int eventType = _inputHandler->yieldEvent(&binding);
+  int eventType = _inputHandler->yieldEvent(pressed, &binding);
 
   if (pressed) {
     switch (eventType) {
@@ -418,6 +418,23 @@ void Badger::Engine::_fireEvent(void* data) {
 
       default:
         break;
+    }
+
+    if (_inputHandler->isEventHeld(1)) {
+      _world->actor(0)->animate("walk_left");
+      _world->actor(0)->setCurrentState("walk_left");
+    }
+    else if (_inputHandler->isEventHeld(2)) {
+      _world->actor(0)->animate("walk_right");
+      _world->actor(0)->setCurrentState("walk_right");
+    }
+    else if (_inputHandler->isEventHeld(3)) {
+      _world->actor(0)->animate("walk_up");
+      _world->actor(0)->setCurrentState("walk_up");
+    }
+    else if (_inputHandler->isEventHeld(4)) {
+      _world->actor(0)->animate("walk_down");
+      _world->actor(0)->setCurrentState("walk_down");
     }
   }
 }
